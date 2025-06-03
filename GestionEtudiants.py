@@ -30,6 +30,10 @@ class GestionEtudiants:
         boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='blue')
         boutonFrame.place(x=20, y=400, width=0.28  * largeur_ecran, height=70)
 
+        # ========Frame affciche des données des etudiants =======================
+        detailsFrame = Frame(self.root, bd=2, relief="groove", bg='blue')
+        detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645  * largeur_ecran, height=500)
+
 
 root = Tk()
 yekola = GestionEtudiants(root)
