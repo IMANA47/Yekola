@@ -16,6 +16,17 @@ class GestionEtudiants:
         titre.pack(side="top", fill="x")
 
         # ========Frame menu principale =======================
+        menuFrame = Frame(self.root, bd=2, relief="groove", bg='blue')
+        menuFrame.place(x=20, y=50, width=0.97*largeur_ecran, height=80)
+
+        # ========Formulaire de saisi des données des etudiants =======================
+        manageFrame = Frame(self.root, bd=2, relief="groove", bg='blue')
+        manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=500)
+
+        titleLabel = Label(manageFrame, text="Information sur l'etudiant",font=('ubuntu', 18, 'bold'),bg='blue',fg='white' )
+        titleLabel.grid(row=0, columnspan=2, pady=15)
+
+
 
 root = Tk()
 yekola = GestionEtudiants(root)
