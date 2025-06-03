@@ -26,6 +26,9 @@ class GestionEtudiants:
         titleLabel = Label(manageFrame, text="Information sur l'etudiant",font=('ubuntu', 18, 'bold'),bg='blue',fg='white' )
         titleLabel.grid(row=0, columnspan=2, pady=15)
 
+        # ========ajout du bouton d'action de etudiants  des etudiants =======================
+        boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='blue')
+        boutonFrame.place(x=20, y=400, width=0.28  * largeur_ecran, height=70)
 
 
 root = Tk()
