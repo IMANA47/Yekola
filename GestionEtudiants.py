@@ -9,29 +9,29 @@ class GestionEtudiants:
         largeur_ecran = self.root.winfo_screenwidth()
         hauteur_ecran = self.root.winfo_screenheight()
         self.root.geometry('%dx%d' % (largeur_ecran, hauteur_ecran))
-        self.root.configure(bg='gray')
+        self.root.configure(bg='#DADADA')
 
         #========Titre de la fenetre gestion des etudiants=======================
-        titre = Label(self.root, text='Gestion des étudiants',fg="white",bd=2, relief="groove", font=('ubuntu', 20, 'bold'),padx=20, bg='blue')
+        titre = Label(self.root, text='Gestion des étudiants',fg="white",bd=2, relief="groove", font=('ubuntu', 20, 'bold'),padx=20, bg='#1E02F2')
         titre.pack(side="top", fill="x")
 
         # ========Frame menu principale =======================
-        menuFrame = Frame(self.root, bd=2, relief="groove", bg='blue')
+        menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         menuFrame.place(x=20, y=50, width=0.97*largeur_ecran, height=80)
 
         # ========Formulaire de saisi des données des etudiants =======================
-        manageFrame = Frame(self.root, bd=2, relief="groove", bg='blue')
+        manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=500)
 
         titleLabel = Label(manageFrame, text="Information sur l'etudiant",font=('ubuntu', 18, 'bold'),bg='blue',fg='white' )
         titleLabel.grid(row=0, columnspan=2, pady=15)
 
         # ========ajout du bouton d'action de etudiants  des etudiants =======================
-        boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='blue')
+        boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
         boutonFrame.place(x=20, y=400, width=0.28  * largeur_ecran, height=70)
 
         # ========Frame affciche des données des etudiants =======================
-        detailsFrame = Frame(self.root, bd=2, relief="groove", bg='blue')
+        detailsFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645  * largeur_ecran, height=500)
 
 
