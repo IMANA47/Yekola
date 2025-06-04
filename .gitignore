@@ -1,2 +1,57 @@
-# Ignorer les dossiers d'IntelliJ
-.idea/
+# === Fichiers Python compilés ===
+__pycache__/
+*.py[cod]
+*$py.class
+
+# === Extensions compilées ===
+*.so
+
+# === Environnements virtuels ===
+env/
+venv/
+.venv/
+ENV/
+.Python
+
+# === Dossiers de build et distribution ===
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+*.whl
+
+# === Logs et fichiers temporaires ===
+*.log
+*.tmp
+*.bak
+*.swp
+
+# === Caches et rapports de tests ===
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# === Configurations IDE ===
+.idea/          # PyCharm
+.vscode/        # VS Code (au cas où)
+
+# === PyInstaller ===
+*.spec
+*.manifest
+
+
+# === Pyre ===
+.pyre/
