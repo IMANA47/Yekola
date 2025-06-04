@@ -20,6 +20,16 @@ class GestionEtudiants:
         menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         menuFrame.place(x=20, y=50, width=0.97*largeur_ecran, height=80)
 
+        # ========les bouton des differents menu principale =======================
+        gestionFormationButon = Button(menuFrame, text="Gestion des Formations",font=('ubuntu', 16, 'bold'), width=23, cursor='hand2', command=self.gestionFormations)
+        gestionFormationButon.grid(row=0, column=1, padx=10,pady=10)
+
+        gestionInscriptionButon = Button(menuFrame, text="Gestion des inscriptions",font=('ubuntu', 16, 'bold'), width=23, cursor='hand2', command=self.gestionInscriptions)
+        gestionInscriptionButon.grid(row=0, column=2, padx=10,pady=10)
+
+        gestionFormateurButon = Button(menuFrame, text="Gestion des formateurs",font=('ubuntu', 16, 'bold'), width=23, cursor='hand2', command=self.gestionFormateur)
+        gestionFormateurButon.grid(row=0, column=3, padx=10,pady=10)
+
         # ========Formulaire de saisi des données des etudiants =======================
         manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=500)
@@ -65,19 +75,19 @@ class GestionEtudiants:
         boutonFrame.place(x=20, y=400, width=0.28  * largeur_ecran, height=70)
 
         # ========ajout des boutons d'action de gestions des etudiants =================
-        enregistreButton = Button(boutonFrame, text='Enregistrer', width=8, height=2, command=self.enregistrer_etudiant,
+        enregistreButton = Button(boutonFrame, text='Enregistrer', width=8, height=2, command=self.enregistrerEtudiant,
                                   cursor='hand2' )
         enregistreButton.grid(row=0, column=0, padx=10, pady=10)
 
-        modifierButton = Button(boutonFrame, text='Modifier', width=8, height=2, command= self.modifier_etudiant,
+        modifierButton = Button(boutonFrame, text='Modifier', width=8, height=2, command= self.modifierEtudiant,
                                   cursor='hand2')
         modifierButton.grid(row=0, column=1, padx=10, pady=10)
 
-        supprimerButton = Button(boutonFrame, text='Supprimer', width=8, height=2, command=self.supprimer_etudiant,
+        supprimerButton = Button(boutonFrame, text='Supprimer', width=8, height=2, command=self.supprimerEtudiant,
                                   cursor='hand2')
         supprimerButton.grid(row=0, column=2, padx=10, pady=10)
 
-        rafraichirButton = Button(boutonFrame, text='Rafraichir', width=8, height=2, command=self.rafraichir_etudiant,
+        rafraichirButton = Button(boutonFrame, text='Rafraichir', width=8, height=2, command=self.rafraichirEtudiant,
                                   cursor='hand2')
         rafraichirButton.grid(row=0, column=3, padx=10, pady=10)
 
@@ -94,26 +104,34 @@ class GestionEtudiants:
         rechercheText = Entry(detailsFrame, font=('Times new roman', 14),bd=2, relief='groove', fg='white', width=30 )
         rechercheText.grid(row=0, column=1, padx=10, pady=10, sticky='w')
 
-        rechercheButon = Button(detailsFrame, text='Rechercher', width=10, cursor='hand2', command=self.rechercher_par)
+        rechercheButon = Button(detailsFrame, text='Rechercher', width=10, cursor='hand2', command=self.rechercherPar)
         rechercheButon.grid(row=0, column=2, padx=10, pady=10)
 
-        AfficherTousButon = Button(detailsFrame, text='Afficher tous', width=10, cursor='hand2', command=self.afficher_etudiants)
+        AfficherTousButon = Button(detailsFrame, text='Afficher tous', width=10, cursor='hand2', command=self.afficherEtudiants)
         AfficherTousButon.grid(row=0, column=3, padx=10, pady=10)
 
     # Les fonction d'action des buttons
-    def enregistrer_etudiant(self):
+    def enregistrerEtudiant(self):
         pass
 
-    def modifier_etudiant(self):
+    def modifierEtudiant(self):
         pass
-    def supprimer_etudiant(self):
+    def supprimerEtudiant(self):
         pass
 
-    def rafraichir_etudiant(self):
+    def rafraichirEtudiant(self):
         pass
-    def rechercher_par(self):
+    def rechercherPar(self):
         pass
-    def afficher_etudiants(self):
+    def afficherEtudiants(self):
+        pass
+    def gestionFormations(self):
+        pass
+
+    def gestionInscriptions(self):
+        pass
+
+    def gestionFormateur(self):
         pass
 
 
