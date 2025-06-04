@@ -3,10 +3,6 @@ from tkinter import ttk
 
 class GestionEtudiants:
     def __init__(self,root):
-        self.rafraichir_etudiant = None
-        self.supprimer_etudiant = None
-        self.modifier_etudiant = None
-        self.enregistrer_etudiant = None
         self.root=root
         self.root.title("Système de gestion d'un établissement de formations ")
 
@@ -91,18 +87,34 @@ class GestionEtudiants:
         detailsFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645  * largeur_ecran, height=500)
 
-        # Les fonction d'action des buttons
-        
-        def enregistrer_etudiant():
-            pass
+        # ========Affichage du champs de recherche =======================
+        rechercheLabel = Label(detailsFrame, text='Recherhcer par nom ou par email : ', font=('ubuntu', 12, 'bold'),bg='#1E02F2', fg='white' )
+        rechercheLabel.grid(row=0, column=0, padx=10, pady=10, sticky='w')
 
-        def modifier_etudiant():
-            pass
-        def supprimer_etudiant():
-            pass
+        rechercheText = Entry(detailsFrame, font=('Times new roman', 14),bd=2, relief='groove', fg='white', width=30 )
+        rechercheText.grid(row=0, column=1, padx=10, pady=10, sticky='w')
 
-        def rafraichir_etudiant():
-            pass
+        rechercheButon = Button(detailsFrame, text='Rechercher', width=10, cursor='hand2', command=self.rechercher_par)
+        rechercheButon.grid(row=0, column=2, padx=10, pady=10)
+
+        AfficherTousButon = Button(detailsFrame, text='Afficher tous', width=10, cursor='hand2', command=self.afficher_etudiants)
+        AfficherTousButon.grid(row=0, column=3, padx=10, pady=10)
+
+    # Les fonction d'action des buttons
+    def enregistrer_etudiant(self):
+        pass
+
+    def modifier_etudiant(self):
+        pass
+    def supprimer_etudiant(self):
+        pass
+
+    def rafraichir_etudiant(self):
+        pass
+    def rechercher_par(self):
+        pass
+    def afficher_etudiants(self):
+        pass
 
 
 root = Tk()
