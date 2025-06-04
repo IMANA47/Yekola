@@ -1,7 +1,12 @@
 from tkinter import *
 from tkinter import ttk
+
 class GestionEtudiants:
     def __init__(self,root):
+        self.rafraichir_etudiant = None
+        self.supprimer_etudiant = None
+        self.modifier_etudiant = None
+        self.enregistrer_etudiant = None
         self.root=root
         self.root.title("Système de gestion d'un établissement de formations ")
 
@@ -59,13 +64,45 @@ class GestionEtudiants:
 
 
 
-        # ========ajout du bouton d'action de etudiants  des etudiants =================
+        # ========ajout du espace des boutons d'action de gestion  des etudiants =================
         boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
         boutonFrame.place(x=20, y=400, width=0.28  * largeur_ecran, height=70)
+
+        # ========ajout des boutons d'action de gestions des etudiants =================
+        enregistreButton = Button(boutonFrame, text='Enregistrer', width=8, height=2, command=self.enregistrer_etudiant,
+                                  cursor='hand2' )
+        enregistreButton.grid(row=0, column=0, padx=10, pady=10)
+
+        modifierButton = Button(boutonFrame, text='Modifier', width=8, height=2, command= self.modifier_etudiant,
+                                  cursor='hand2')
+        modifierButton.grid(row=0, column=1, padx=10, pady=10)
+
+        supprimerButton = Button(boutonFrame, text='Supprimer', width=8, height=2, command=self.supprimer_etudiant,
+                                  cursor='hand2')
+        supprimerButton.grid(row=0, column=2, padx=10, pady=10)
+
+        rafraichirButton = Button(boutonFrame, text='Rafraichir', width=8, height=2, command=self.rafraichir_etudiant,
+                                  cursor='hand2')
+        rafraichirButton.grid(row=0, column=3, padx=10, pady=10)
+
+
 
         # ========Frame affciche des données des etudiants =======================
         detailsFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645  * largeur_ecran, height=500)
+
+        # Les fonction d'action des buttons
+        
+        def enregistrer_etudiant():
+            pass
+
+        def modifier_etudiant():
+            pass
+        def supprimer_etudiant():
+            pass
+
+        def rafraichir_etudiant():
+            pass
 
 
 root = Tk()
