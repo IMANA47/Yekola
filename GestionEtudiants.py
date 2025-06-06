@@ -1,5 +1,7 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
+from validate_email import validate_email
+
 
 class GestionEtudiants:
     def __init__(self,root):
@@ -15,6 +17,13 @@ class GestionEtudiants:
         #========Titre de la fenetre gestion des etudiants=======================
         titre = Label(self.root, text='Gestion des étudiants',fg="white",bd=2, relief="groove", font=('ubuntu', 20, 'bold'),padx=20, bg='#1E02F2')
         titre.pack(side="top", fill="x")
+
+        global ineLabelEtudiantText
+        global nomLabelEtudiantText
+        global prenomLabelEtudiantText
+        global adresseLabelEtudiantText
+        global emailLabelEtudiantText
+        global villeLabelEtudiantText
 
         # ========Frame menu principale =======================
         menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
@@ -112,7 +121,41 @@ class GestionEtudiants:
 
     # Les fonction d'action des buttons
     def enregistrerEtudiant(self):
-        pass
+
+        is_valid = validate_email(emailLabelEtudiantText.get())
+        champs = []
+        if ineLabelEtudiantText.get()=="":
+            champs.append(ineLabelEtudiantText)
+
+        if nomLabelEtudiantText.get()=="":
+            champs.append(nomLabelEtudiantText)
+
+        if prenomLabelEtudiantText.get()=="":
+            champs.append(prenomLabelEtudiantText)
+
+        if emailLabelEtudiantText.get()=="":
+            champs.append(emailLabelEtudiantText)
+
+        if adresseLabelEtudiantText.get()=="":
+            champs.append(adresseLabelEtudiantText)
+
+        if villeLabelEtudiantText.get()=="":
+            champs.append(villeLabelEtudiantText)
+
+        if champs != []:
+            for champ in champs:
+                    champ['bg'] = "#C60E0E"
+            messagebox.showerror("Erreurs", "Veuillez remplir tous les champs requis !")
+            champs.clear()
+
+            return champs
+
+        if not(is_valid):
+            messagebox.showerror("Erreurs", "L'email que vous avez saisi n'est pas valide")
+            emailLabelEtudiantText['bg'] = "#C60E0E"
+        else:
+
+
 
     def modifierEtudiant(self):
         pass
