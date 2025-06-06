@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 from validate_email import validate_email
+import sqlite3
 
 
 class GestionEtudiants:
@@ -154,6 +155,19 @@ class GestionEtudiants:
             messagebox.showerror("Erreurs", "L'email que vous avez saisi n'est pas valide")
             emailLabelEtudiantText['bg'] = "#C60E0E"
         else:
+            database = "database/data_base_yekola.db"
+            connexion = sqlite3.connect(database)
+            cursor = connexion.cursor()
+
+            data = (ineLabelEtudiantText.get(),nomLabelEtudiantText.get(), prenomLabelEtudiantText.get(), emailLabelEtudiantText.get(), adresseLabelEtudiantText.get(), villeLabelEtudiantText.get())
+            req = "INSERT INTO etudiants(ine, nom_etudiant, prenom_etudiant, email, adresse, ville) VALUES (?,?,?,?,?,?)"
+            cursor.execute(req, data)
+            connexion.commit()
+            cursor.close()
+            connexion.close()
+
+            messagebox.showinfo("Enregistrement d'un étudiant", "L'enregistrement de l'etudiant "+ nomLabelEtudiantText.get()+" "+prenomLabelEtudiantText.get()+" a été enregistré ")
+
 
 
 
