@@ -79,7 +79,7 @@ class GestionEtudiants:
         adresseLabelEtudiant = Label(manageFrame, text="Adresse:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                      fg='white')
         adresseLabelEtudiant.grid(row=5, column=0, pady=10, sticky='w')
-        adresseLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
+        adresseLabelEtudiantText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",height=1.70,
                                          width=30)
         adresseLabelEtudiantText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
 
@@ -146,7 +146,7 @@ class GestionEtudiants:
         if emailLabelEtudiantText.get() == "":
             champs.append(emailLabelEtudiantText)
 
-        if adresseLabelEtudiantText.get() == "":
+        if len(adresseLabelEtudiantText.get(1.0, END +'-1c')) == 0:
             champs.append(adresseLabelEtudiantText)
 
         if villeLabelEtudiantText.get() == "":
@@ -187,7 +187,7 @@ class GestionEtudiants:
 
             else:
                 data = (ineLabelEtudiantText.get(), nomLabelEtudiantText.get(), prenomLabelEtudiantText.get(),
-                        emailLabelEtudiantText.get(), adresseLabelEtudiantText.get(), villeLabelEtudiantText.get())
+                        emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END), villeLabelEtudiantText.get())
                 req = "INSERT INTO etudiants(ine, nom_etudiant, prenom_etudiant, email, adresse, ville) VALUES (?,?,?,?,?,?)"
                 cursor.execute(req, data)
                 connexion.commit()
@@ -196,6 +196,7 @@ class GestionEtudiants:
 
                 messagebox.showinfo("Enregistrement d'un étudiant",
                                 "L'enregistrement de l'etudiant " + nomLabelEtudiantText.get() + " " + prenomLabelEtudiantText.get() + " a été enregistré ")
+                self.rafraichirEtudiant()
 
     def modifierEtudiant(self):
         pass
@@ -204,7 +205,20 @@ class GestionEtudiants:
         pass
 
     def rafraichirEtudiant(self):
-        pass
+        ineLabelEtudiantText.delete(0, END)
+        nomLabelEtudiantText.delete(0, END)
+        prenomLabelEtudiantText.delete(0, END)
+        emailLabelEtudiantText.delete(0, END)
+        adresseLabelEtudiantText.delete("1.0", END)
+        villeLabelEtudiantText.delete(0, END)
+
+        #Pour change la couleur des bg au momnent du rafraichir
+        ineLabelEtudiantText['bg']= "white"
+        nomLabelEtudiantText['bg']= "white"
+        prenomLabelEtudiantText['bg']= "white"
+        emailLabelEtudiantText['bg']= "white"
+        adresseLabelEtudiantText['bg']= "white"
+        villeLabelEtudiantText['bg']= "white"
 
     def rechercherPar(self):
         pass
