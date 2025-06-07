@@ -129,6 +129,38 @@ class GestionEtudiants:
                                    command=self.afficherEtudiants)
         AfficherTousButon.grid(row=0, column=3, padx=10, pady=10)
 
+        # ========Frame pour afficher les resultat entrer dans le formulaire =======================
+        tableFrame =Frame(detailsFrame, bd=2, relief='groove', bg='#1E02F2')
+        tableFrame.place(x=10, y=50, width=0.62 * largeur_ecran, height=440)
+
+        defilement_x = Scrollbar(tableFrame, orient="horizontal")
+        defilement_y = Scrollbar(tableFrame, orient="vertical")
+
+        etudiantTable = ttk.Treeview(tableFrame, columns=("ine", "nom", "prenom", "email", "adresse", "ville")
+                                     ,xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
+
+        defilement_x.pack(side="bottom", fill="x")
+        defilement_y.pack(side="right", fill="x")
+        defilement_x.config(command=etudiantTable.xview)
+        defilement_y.config(command=etudiantTable.yview)
+
+        etudiantTable.heading("ine", text="INE")
+        etudiantTable.heading("nom", text="Nom")
+        etudiantTable.heading("prenom", text="Prénom")
+        etudiantTable.heading("email", text="Email")
+        etudiantTable.heading("adresse", text="Adresse")
+        etudiantTable.heading("ville", text="Ville")
+
+        etudiantTable['show']='headings'
+        etudiantTable.column('ine', width=70)
+        etudiantTable.column('nom', width=110)
+        etudiantTable.column('prenom', width=110)
+        etudiantTable.column('email', width=110)
+        etudiantTable.column('adresse', width=230)
+        etudiantTable.column('ville', width=110)
+
+        etudiantTable.pack(fill="both", expand=True)
+
     # Les fonction d'action des buttons
     def enregistrerEtudiant(self):
 
