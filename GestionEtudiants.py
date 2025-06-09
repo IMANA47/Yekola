@@ -28,7 +28,7 @@ class GestionEtudiants:
         global villeLabelEtudiantText
         global  rechercheText
 
-        global   etudiantTable
+        global etudiantTable
 
         # ========Frame menu principale =======================
         menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
@@ -165,6 +165,7 @@ class GestionEtudiants:
         etudiantTable.pack(fill="both", expand=True)
 
         self.afficherEtudiants()
+        etudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
 
 
     # Les fonction d'action des buttons
@@ -236,6 +237,29 @@ class GestionEtudiants:
                                 "L'enregistrement de l'etudiant " + nomLabelEtudiantText.get() + " " + prenomLabelEtudiantText.get() + " a été enregistré ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
+
+
+    def recupererDonneesSelectionnees(self, evenement):
+        ligne_selectionnee = etudiantTable.focus()
+        contenu = etudiantTable.item(ligne_selectionnee)
+        #Pour recuperer les valeurs
+        ligne = contenu['values']
+
+        ineLabelEtudiantText.delete(0, END)
+        nomLabelEtudiantText.delete(0, END)
+        prenomLabelEtudiantText.delete(0, END)
+        emailLabelEtudiantText.delete(0, END)
+        adresseLabelEtudiantText.delete('1.0', END)
+        villeLabelEtudiantText.delete(0, END)
+
+
+        ineLabelEtudiantText.insert(END, ligne[0])
+        nomLabelEtudiantText.insert(END, ligne[1])
+        prenomLabelEtudiantText.insert(END, ligne[2])
+        emailLabelEtudiantText.insert(END, ligne[3])
+        adresseLabelEtudiantText.insert(END, ligne[4])
+        villeLabelEtudiantText.insert(END, ligne[5])
+
 
     def modifierEtudiant(self):
         pass
