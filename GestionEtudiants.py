@@ -240,6 +240,7 @@ class GestionEtudiants:
 
 
     def recupererDonneesSelectionnees(self, evenement):
+        ineLabelEtudiantText['state']='normal'
         ligne_selectionnee = etudiantTable.focus()
         contenu = etudiantTable.item(ligne_selectionnee)
         #Pour recuperer les valeurs
@@ -260,14 +261,84 @@ class GestionEtudiants:
         adresseLabelEtudiantText.insert(END, ligne[4])
         villeLabelEtudiantText.insert(END, ligne[5])
 
+        #Pour rendre le INE verrouiller non modifiable
+        ineLabelEtudiantText['state']='disabled'
+
 
     def modifierEtudiant(self):
-        pass
+
+
+        is_valid = validate_email(emailLabelEtudiantText.get())
+        champs = []
+        if nomLabelEtudiantText.get() == "":
+            champs.append(nomLabelEtudiantText)
+
+        if prenomLabelEtudiantText.get() == "":
+            champs.append(prenomLabelEtudiantText)
+
+        if emailLabelEtudiantText.get() == "":
+            champs.append(emailLabelEtudiantText)
+
+        if len(adresseLabelEtudiantText.get(1.0, END +'-1c')) == 0:
+            champs.append(adresseLabelEtudiantText)
+
+        if villeLabelEtudiantText.get() == "":
+            champs.append(villeLabelEtudiantText)
+
+        if champs != []:
+            for champ in champs:
+                champ['bg'] = "#C60E0E"
+            messagebox.showerror("Erreurs", "Veuillez remplir tous les champs requis !")
+            champs.clear()
+
+            return champs
+
+        if not (is_valid):
+            messagebox.showerror("Erreurs", "L'email que vous avez saisi n'est pas valide")
+            emailLabelEtudiantText['bg'] = "#C60E0E"
+        else:
+            database = "database/data_base_yekola.db"
+            connexion = sqlite3.connect(database)
+            cursor = connexion.cursor()
+
+            # Verification si l'identifiant est double
+            n = ineLabelEtudiantText.get()
+            m = emailLabelEtudiantText.get()
+            requete = "SELECT* FROM etudiants WHERE ine != :ine AND email = :email"
+            cursor.execute(requete, {'ine': n, 'email': m})
+            result = cursor.fetchall()
+            if len(result) > 0:
+                messagebox.showerror("Erreurs", "L'identifiant de l'etudiant est déja enrégistrer !!!")
+
+            # Verification si l'email n'est double
+            em = emailLabelEtudiantText.get()
+            requeteEmail = "SELECT* FROM etudiants WHERE email = :email"
+            cursor.execute(requeteEmail, {'email': em})
+
+            resultEmail = cursor.fetchall()
+            if len(resultEmail) > 0:
+                messagebox.showerror("Erreurs", "L'email de l'etudiant est déja enrégistrer !!!")
+
+            else:
+                data = (nomLabelEtudiantText.get(), prenomLabelEtudiantText.get(),
+                        emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END), villeLabelEtudiantText.get(), ineLabelEtudiantText.get())
+                req = "UPDATE  etudiants SET nom_etudiant= ?, prenom_etudiant= ?, email= ?, adresse= ?, ville= ? WHERE ine = ?"
+                cursor.execute(req, data)
+                connexion.commit()
+                cursor.close()
+                connexion.close()
+
+                messagebox.showinfo("Modification d'un étudiant",
+                                "Modification de l'etudiant " + nomLabelEtudiantText.get() + " " + prenomLabelEtudiantText.get() + " a été effectuez ")
+                self.rafraichirEtudiant()
+                self.afficherEtudiants()
 
     def supprimerEtudiant(self):
         pass
 
     def rafraichirEtudiant(self):
+        ineLabelEtudiantText['state']='normal'
+
         ineLabelEtudiantText.delete(0, END)
         nomLabelEtudiantText.delete(0, END)
         prenomLabelEtudiantText.delete(0, END)
