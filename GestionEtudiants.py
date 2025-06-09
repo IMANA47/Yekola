@@ -27,6 +27,8 @@ class GestionEtudiants:
         global emailLabelEtudiantText
         global villeLabelEtudiantText
 
+        global   etudiantTable
+
         # ========Frame menu principale =======================
         menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         menuFrame.place(x=20, y=50, width=0.97 * largeur_ecran, height=80)
@@ -161,6 +163,9 @@ class GestionEtudiants:
 
         etudiantTable.pack(fill="both", expand=True)
 
+        self.afficherEtudiants()
+
+
     # Les fonction d'action des buttons
     def enregistrerEtudiant(self):
 
@@ -256,7 +261,19 @@ class GestionEtudiants:
         pass
 
     def afficherEtudiants(self):
-        pass
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        req = "SELECT * FROM etudiants"
+        cursor.execute(req)
+        result = cursor.fetchall()
+
+        if len(result) > 0:
+            etudiantTable.delete(*etudiantTable.get_children())
+            for row in result:
+                etudiantTable.insert('', END, values = row)
+
 
     def gestionFormations(self):
         pass
