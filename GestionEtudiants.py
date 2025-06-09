@@ -332,9 +332,35 @@ class GestionEtudiants:
                                 "Modification de l'etudiant " + nomLabelEtudiantText.get() + " " + prenomLabelEtudiantText.get() + " a été effectuez ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
-
+    #Methode pour suppresion
     def supprimerEtudiant(self):
-        pass
+        if ineLabelEtudiantText.get() != "":
+            supp = messagebox.askyesno("Supprimer", "Voulez vous supprimer cet étudiant ?")
+            if supp<=0:
+                self.afficherEtudiants()
+            else:
+                database = "database/data_base_yekola.db"
+                connexion = sqlite3.connect(database)
+                cursor = connexion.cursor()
+
+                data = (ineLabelEtudiantText.get(),)
+                req = "DELETE FROM etudiants WHERE ine=?"
+                cursor.execute(req, data)
+
+                connexion.commit()
+                cursor.close()
+                connexion.close()
+
+                messagebox.showinfo("Confirmation de suppression", "L'etudiant a bien été supprimé")
+
+
+                self.rafraichirEtudiant()
+                self.afficherEtudiants()
+        else:
+            messagebox.showerror("Selection", "Veuillez selectionner un étudiant à supprimer")
+
+
+
 
     def rafraichirEtudiant(self):
         ineLabelEtudiantText['state']='normal'
