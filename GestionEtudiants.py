@@ -234,6 +234,7 @@ class GestionEtudiants:
                 messagebox.showinfo("Enregistrement d'un étudiant",
                                 "L'enregistrement de l'etudiant " + nomLabelEtudiantText.get() + " " + prenomLabelEtudiantText.get() + " a été enregistré ")
                 self.rafraichirEtudiant()
+                self.afficherEtudiants()
 
     def modifierEtudiant(self):
         pass
