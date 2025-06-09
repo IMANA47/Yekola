@@ -26,6 +26,7 @@ class GestionEtudiants:
         global adresseLabelEtudiantText
         global emailLabelEtudiantText
         global villeLabelEtudiantText
+        global  rechercheText
 
         global   etudiantTable
 
@@ -121,7 +122,7 @@ class GestionEtudiants:
                                bg='#1E02F2', fg='white')
         rechercheLabel.grid(row=0, column=0, padx=10, pady=10, sticky='w')
 
-        rechercheText = Entry(detailsFrame, font=('Times new roman', 14), bd=2, relief='groove', fg='white', width=30)
+        rechercheText = Entry(detailsFrame, font=('Times new roman', 14), bd=2, relief='groove', fg='black', width=30)
         rechercheText.grid(row=0, column=1, padx=10, pady=10, sticky='w')
 
         rechercheButon = Button(detailsFrame, text='Rechercher', width=10, cursor='hand2', command=self.rechercherPar)
@@ -259,7 +260,25 @@ class GestionEtudiants:
         villeLabelEtudiantText['bg']= "white"
 
     def rechercherPar(self):
-        pass
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        b = rechercheText.get()
+
+        req = "SELECT * FROM etudiants WHERE nom_etudiant = :nom or email = :email"
+        cursor.execute(req, {'nom': b, 'email': b})
+        result = cursor.fetchall()
+
+        if len(result) > 0:
+            etudiantTable.delete(*etudiantTable.get_children())
+            for row in result:
+                etudiantTable.insert('', END, values = row)
+        else:
+            messagebox.showinfo("Recherche", "L'etudiant rechercher n'existe pas")
+        cursor.close()
+        connexion.close()
+
 
     def afficherEtudiants(self):
         database = "database/data_base_yekola.db"
@@ -274,7 +293,8 @@ class GestionEtudiants:
             etudiantTable.delete(*etudiantTable.get_children())
             for row in result:
                 etudiantTable.insert('', END, values = row)
-
+        cursor.close()
+        connexion.close()
 
     def gestionFormations(self):
         pass
