@@ -15,8 +15,8 @@ class GestionFormations:
         self.root.geometry('%dx%d' % (largeur_ecran, hauteur_ecran))
         self.root.configure(bg='#DADADA')
 
-        # ========Titre de la fenetre gestion des formations=======================
-        titre = Label(self.root, text='Gestion des formations', fg="white", bd=2, relief="groove",
+        # ========Titre de la fenetre gestion des etudiants=======================
+        titre = Label(self.root, text='Gestion des Formations', fg="white", bd=2, relief="groove",
                       font=('ubuntu', 20, 'bold'), padx=20, bg='#1E02F2')
         titre.pack(side="top", fill="x")
 
@@ -25,6 +25,7 @@ class GestionFormations:
         global langueLabelFormationText
         global niveauLabelFormationText
         global objectifLabelFormationText
+
         global  rechercheText
 
         global formationTable
@@ -50,7 +51,7 @@ class GestionFormations:
         manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=500)
 
-        titleLabel = Label(manageFrame, text="Information des formations", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
+        titleLabel = Label(manageFrame, text="Information sur formation", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
                            fg='white')
         titleLabel.grid(row=0, columnspan=2, pady=15)
 
@@ -60,8 +61,8 @@ class GestionFormations:
         codeLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
         codeLabelFormationText.grid(row=1, column=1, padx=10, pady=10, sticky='w')
 
-        intituléLabelFormation = Label(manageFrame, text="Intitulé:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        intituléLabelFormation.grid(row=2, column=0, pady=10, sticky='w')
+        intituleLabelEtudiant = Label(manageFrame, text="Intitulé:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        intituleLabelEtudiant.grid(row=2, column=0, pady=10, sticky='w')
         intituleLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
         intituleLabelFormationText.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
@@ -71,21 +72,18 @@ class GestionFormations:
                                          width=30)
         langueLabelFormationText.grid(row=3, column=1, padx=10, pady=10, sticky='w')
 
-        niveauLabelFormation = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
-                                   fg='white')
-        niveauLabelFormation.grid(row=4, column=0, pady=10, sticky='w')
+        niveauLabelFormation = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        niveauLabelFormation.grid(row=6, column=0, pady=10, sticky='w')
         niveauLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
-                                           width=30)
-        niveauLabelFormationText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
+                                         width=30)
+        niveauLabelFormationText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
 
-        objectifLabelFormation = Label(manageFrame, text="Objectifs:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
+        objectifLabelFormation = Label(manageFrame, text="Objectif:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                      fg='white')
         objectifLabelFormation.grid(row=5, column=0, pady=10, sticky='w')
         objectifLabelFormationText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", height=1.70,
-                                        width=30)
-        objectifLabelFormationText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
-
-
+                                          width=30)
+        objectifLabelFormationText.grid(row=6, column=1, padx=10, pady=10, sticky='w')
 
         # ========ajout du espace des boutons d'action de gestion  des etudiants =================
         boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
@@ -134,7 +132,7 @@ class GestionFormations:
         defilement_x = Scrollbar(tableFrame, orient="horizontal")
         defilement_y = Scrollbar(tableFrame, orient="vertical")
 
-        formationTable = ttk.Treeview(tableFrame, columns=("code", "intitulé", "langue", "niveau", "objectifs",)
+        formationTable = ttk.Treeview(tableFrame, columns=("code", "intitulé", "langue","niveau", "objectifs")
                                       , xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
 
         defilement_x.pack(side="bottom", fill="x")
@@ -143,19 +141,17 @@ class GestionFormations:
         defilement_y.config(command=formationTable.yview)
 
         formationTable.heading("code", text="Code")
-        formationTable.heading("intitulé", text="Nom")
+        formationTable.heading("intitulé", text="Intitulé")
         formationTable.heading("langue", text="Langue")
         formationTable.heading("niveau", text="Niveau")
-        formationTable.heading("objectifs", text="Objectifs")
-
+        formationTable.heading("objectifs", text="Objectif")
 
         formationTable['show']= 'headings'
         formationTable.column('code', width=70)
-        formationTable.column('intitulé', width=110)
-        formationTable.column('langue', width=110)
-        formationTable.column('niveau', width=110)
-        formationTable.column('objectifs', width=230)
-
+        formationTable.column('intitulé', width=150)
+        formationTable.column('langue', width=130)
+        formationTable.column('niveau', width=100)
+        formationTable.column('objectifs', width=300)
 
         formationTable.pack(fill="both", expand=True)
 
@@ -165,6 +161,7 @@ class GestionFormations:
 
     # Les fonction d'action des buttons
     def enregistrerEtudiant(self):
+
         champs = []
         if codeLabelFormationText.get() == "":
             champs.append(codeLabelFormationText)
@@ -175,7 +172,7 @@ class GestionFormations:
         if langueLabelFormationText.get() == "":
             champs.append(langueLabelFormationText)
 
-        if objectifLabelFormationText.get() == "":
+        if len(objectifLabelFormationText.get(1.0, END + '-1c')) == 0:
             champs.append(objectifLabelFormationText)
 
         if niveauLabelFormationText.get() == "":
@@ -188,6 +185,7 @@ class GestionFormations:
             champs.clear()
 
             return champs
+
         else:
             database = "database/data_base_yekola.db"
             connexion = sqlite3.connect(database)
@@ -195,23 +193,23 @@ class GestionFormations:
 
             # Verification si l'identifiant est double
             n = codeLabelFormationText.get()
-            requete = "SELECT* FROM formations WHERE code_formations = :code"
-            cursor.execute(requete, {'code_formations': n})
+            requete = "SELECT* FROM etudiants WHERE ine = :ine"
+            cursor.execute(requete, {'ine': n})
             result = cursor.fetchall()
             if len(result) > 0:
-                messagebox.showerror("Erreurs", "L'identifiant de l'etudiant est déja enrégistrer !!!")
+                messagebox.showerror("Erreurs", "Le de la formation est déja enrégistrer !!!")
 
             else:
                 data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), langueLabelFormationText.get(),
-                        objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(),)
-                req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation, niveau_formation, objectif,) VALUES (?,?,?,?,?,)"
+                         objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(),)
+                req = "INSERT INTO etudiants(ine, nom_etudiant, prenom_etudiant, email, adresse, ville) VALUES (?,?,?,?,?,?)"
                 cursor.execute(req, data)
                 connexion.commit()
                 cursor.close()
                 connexion.close()
 
-                messagebox.showinfo("Enregistrement de formations",
-                                "L'enregistrement de la formations " + intituleLabelFormationText.get() + " " + langueLabelFormationText.get() + " a été enregistré ")
+                messagebox.showinfo("Enregistrement d'un étudiant",
+                                "L'enregistrement de l'etudiant " + intituleLabelFormationText.get() + " " + langueLabelFormationText.get() + " a été enregistré ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
 
@@ -226,22 +224,22 @@ class GestionFormations:
         codeLabelFormationText.delete(0, END)
         intituleLabelFormationText.delete(0, END)
         langueLabelFormationText.delete(0, END)
-        objectifLabelFormationText.delete(0, END)
-        niveauLabelFormationText.delete('1.0', END)
-
+        objectifLabelFormationText.delete('1.0', END)
+        niveauLabelFormationText.delete(0, END)
 
 
         codeLabelFormationText.insert(END, ligne[0])
         intituleLabelFormationText.insert(END, ligne[1])
         langueLabelFormationText.insert(END, ligne[2])
-        objectifLabelFormationText.insert(END, ligne[3])
-        niveauLabelFormationText.insert(END, ligne[4])
+        objectifLabelFormationText.insert(END, ligne[4])
+        niveauLabelFormationText.insert(END, ligne[5])
 
         #Pour rendre le INE verrouiller non modifiable
         codeLabelFormationText['state']= 'disabled'
 
 
     def modifierEtudiant(self):
+
         champs = []
         if intituleLabelFormationText.get() == "":
             champs.append(intituleLabelFormationText)
@@ -249,11 +247,11 @@ class GestionFormations:
         if langueLabelFormationText.get() == "":
             champs.append(langueLabelFormationText)
 
-        if niveauLabelFormationText.get() == "":
-            champs.append(niveauLabelFormationText)
-
         if len(objectifLabelFormationText.get(1.0, END + '-1c')) == 0:
             champs.append(objectifLabelFormationText)
+
+        if niveauLabelFormationText.get() == "":
+            champs.append(niveauLabelFormationText)
 
         if champs != []:
             for champ in champs:
@@ -270,25 +268,15 @@ class GestionFormations:
 
             # Verification si l'identifiant est double
             n = codeLabelFormationText.get()
-            m = objectifLabelFormationText.get()
-            requete = "SELECT* FROM etudiants WHERE ine != :ine AND email = :email"
-            cursor.execute(requete, {'ine': n, 'email': m})
+            requete = "SELECT* FROM etudiants WHERE ine != :ine,"
+            cursor.execute(requete, {'ine': n,})
             result = cursor.fetchall()
             if len(result) > 0:
                 messagebox.showerror("Erreurs", "L'identifiant de l'etudiant est déja enrégistrer !!!")
 
-            # Verification si l'email n'est double
-            em = objectifLabelFormationText.get()
-            requeteEmail = "SELECT* FROM etudiants WHERE email = :email"
-            cursor.execute(requeteEmail, {'email': em})
-
-            resultEmail = cursor.fetchall()
-            if len(resultEmail) > 0:
-                messagebox.showerror("Erreurs", "L'email de l'etudiant est déja enrégistrer !!!")
-
             else:
                 data = (intituleLabelFormationText.get(), langueLabelFormationText.get(),
-                        objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(), codeLabelFormationText.get(),)
+                        objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(), codeLabelFormationText.get())
                 req = "UPDATE  etudiants SET nom_etudiant= ?, prenom_etudiant= ?, email= ?, adresse= ?, ville= ? WHERE ine = ?"
                 cursor.execute(req, data)
                 connexion.commit()
@@ -332,8 +320,8 @@ class GestionFormations:
         codeLabelFormationText.delete(0, END)
         intituleLabelFormationText.delete(0, END)
         langueLabelFormationText.delete(0, END)
-        objectifLabelFormationText.delete(0, END)
-        niveauLabelFormationText.delete("1.0", END)
+        objectifLabelFormationText.delete("1.0", END)
+        niveauLabelFormationText.delete(0, END)
 
         #Pour change la couleur des bg au momnent du rafraichir
         codeLabelFormationText['bg']= "white"
