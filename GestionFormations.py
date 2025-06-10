@@ -20,8 +20,8 @@ class GestionFormations:
                       font=('ubuntu', 20, 'bold'), padx=20, bg='#1E02F2')
         titre.pack(side="top", fill="x")
 
-        global codeLabelEtudiantText
-        global nomLabelEtudiantText
+        global codeLabelFormationText
+        global intituleLabelFormationText
         global prenomLabelEtudiantText
         global adresseLabelEtudiantText
         global emailLabelEtudiantText
@@ -55,15 +55,15 @@ class GestionFormations:
         titleLabel.grid(row=0, columnspan=2, pady=15)
 
         # ========Champs de remplisage des infos sur formulaire de saisi des données des etudiants =======================
-        codeLabelEtudiant = Label(manageFrame, text="Code:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        codeLabelEtudiant.grid(row=1, column=0, pady=10, sticky='w')
-        codeLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
-        codeLabelEtudiantText.grid(row=1, column=1, padx=10, pady=10, sticky='w')
+        codeLabelFormation = Label(manageFrame, text="Code:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        codeLabelFormation.grid(row=1, column=0, pady=10, sticky='w')
+        codeLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
+        codeLabelFormationText.grid(row=1, column=1, padx=10, pady=10, sticky='w')
 
-        nomLabelEtudiant = Label(manageFrame, text="Intitulé:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        nomLabelEtudiant.grid(row=2, column=0, pady=10, sticky='w')
-        nomLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
-        nomLabelEtudiantText.grid(row=2, column=1, padx=10, pady=10, sticky='w')
+        intituléLabelFormation = Label(manageFrame, text="Intitulé:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        intituléLabelFormation.grid(row=2, column=0, pady=10, sticky='w')
+        intituleLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
+        intituleLabelFormationText.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
         prenomLabelEtudiant = Label(manageFrame, text="Langue:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
         prenomLabelEtudiant.grid(row=3, column=0, pady=10, sticky='w')
@@ -168,11 +168,11 @@ class GestionFormations:
 
         is_valid = validate_email(emailLabelEtudiantText.get())
         champs = []
-        if codeLabelEtudiantText.get() == "":
-            champs.append(codeLabelEtudiantText)
+        if codeLabelFormationText.get() == "":
+            champs.append(codeLabelFormationText)
 
-        if nomLabelEtudiantText.get() == "":
-            champs.append(nomLabelEtudiantText)
+        if intituleLabelFormationText.get() == "":
+            champs.append(intituleLabelFormationText)
 
         if prenomLabelEtudiantText.get() == "":
             champs.append(prenomLabelEtudiantText)
@@ -200,7 +200,7 @@ class GestionFormations:
             cursor = connexion.cursor()
 
             # Verification si l'identifiant est double
-            n = codeLabelEtudiantText.get()
+            n = codeLabelFormationText.get()
             requete = "SELECT* FROM formations WHERE code_formations = :code"
             cursor.execute(requete, {'code_formations': n})
             result = cursor.fetchall()
@@ -208,7 +208,7 @@ class GestionFormations:
                 messagebox.showerror("Erreurs", "L'identifiant de l'etudiant est déja enrégistrer !!!")
 
             else:
-                data = (codeLabelEtudiantText.get(), nomLabelEtudiantText.get(), prenomLabelEtudiantText.get(),
+                data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), prenomLabelEtudiantText.get(),
                         emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END),)
                 req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation, niveau_formation, objectif,) VALUES (?,?,?,?,?,)"
                 cursor.execute(req, data)
@@ -217,34 +217,34 @@ class GestionFormations:
                 connexion.close()
 
                 messagebox.showinfo("Enregistrement de formations",
-                                "L'enregistrement de la formations " + nomLabelEtudiantText.get() + " " + prenomLabelEtudiantText.get() + " a été enregistré ")
+                                "L'enregistrement de la formations " + intituleLabelFormationText.get() + " " + prenomLabelEtudiantText.get() + " a été enregistré ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
 
 
     def recupererDonneesSelectionnees(self, evenement):
-        codeLabelEtudiantText['state']='normal'
+        codeLabelFormationText['state']= 'normal'
         ligne_selectionnee = etudiantTable.focus()
         contenu = etudiantTable.item(ligne_selectionnee)
         #Pour recuperer les valeurs
         ligne = contenu['values']
 
-        codeLabelEtudiantText.delete(0, END)
-        nomLabelEtudiantText.delete(0, END)
+        codeLabelFormationText.delete(0, END)
+        intituleLabelFormationText.delete(0, END)
         prenomLabelEtudiantText.delete(0, END)
         emailLabelEtudiantText.delete(0, END)
         adresseLabelEtudiantText.delete('1.0', END)
 
 
 
-        codeLabelEtudiantText.insert(END, ligne[0])
-        nomLabelEtudiantText.insert(END, ligne[1])
+        codeLabelFormationText.insert(END, ligne[0])
+        intituleLabelFormationText.insert(END, ligne[1])
         prenomLabelEtudiantText.insert(END, ligne[2])
         emailLabelEtudiantText.insert(END, ligne[3])
         adresseLabelEtudiantText.insert(END, ligne[4])
 
         #Pour rendre le INE verrouiller non modifiable
-        codeLabelEtudiantText['state']='disabled'
+        codeLabelFormationText['state']= 'disabled'
 
 
     def modifierEtudiant(self):
@@ -252,8 +252,8 @@ class GestionFormations:
 
         is_valid = validate_email(emailLabelEtudiantText.get())
         champs = []
-        if nomLabelEtudiantText.get() == "":
-            champs.append(nomLabelEtudiantText)
+        if intituleLabelFormationText.get() == "":
+            champs.append(intituleLabelFormationText)
 
         if prenomLabelEtudiantText.get() == "":
             champs.append(prenomLabelEtudiantText)
@@ -278,7 +278,7 @@ class GestionFormations:
             cursor = connexion.cursor()
 
             # Verification si l'identifiant est double
-            n = codeLabelEtudiantText.get()
+            n = codeLabelFormationText.get()
             m = emailLabelEtudiantText.get()
             requete = "SELECT* FROM etudiants WHERE ine != :ine AND email = :email"
             cursor.execute(requete, {'ine': n, 'email': m})
@@ -296,7 +296,7 @@ class GestionFormations:
                 messagebox.showerror("Erreurs", "L'email de l'etudiant est déja enrégistrer !!!")
 
             else:
-                data = (nomLabelEtudiantText.get(), prenomLabelEtudiantText.get(),
+                data = (intituleLabelFormationText.get(), prenomLabelEtudiantText.get(),
                         emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END), villeLabelEtudiantText.get(), ineLabelEtudiantText.get())
                 req = "UPDATE  etudiants SET nom_etudiant= ?, prenom_etudiant= ?, email= ?, adresse= ?, ville= ? WHERE ine = ?"
                 cursor.execute(req, data)
@@ -305,12 +305,12 @@ class GestionFormations:
                 connexion.close()
 
                 messagebox.showinfo("Modification d'un étudiant",
-                                "Modification de l'etudiant " + nomLabelEtudiantText.get() + " " + prenomLabelEtudiantText.get() + " a été effectuez ")
+                                "Modification de l'etudiant " + intituleLabelFormationText.get() + " " + prenomLabelEtudiantText.get() + " a été effectuez ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
     #Methode pour suppresion
     def supprimerEtudiant(self):
-        if codeLabelEtudiantText.get() != "":
+        if codeLabelFormationText.get() != "":
             supp = messagebox.askyesno("Supprimer", "Voulez vous supprimer cet étudiant ?")
             if supp<=0:
                 self.afficherEtudiants()
@@ -319,7 +319,7 @@ class GestionFormations:
                 connexion = sqlite3.connect(database)
                 cursor = connexion.cursor()
 
-                data = (codeLabelEtudiantText.get(),)
+                data = (codeLabelFormationText.get(),)
                 req = "DELETE FROM etudiants WHERE ine=?"
                 cursor.execute(req, data)
 
@@ -336,17 +336,17 @@ class GestionFormations:
             messagebox.showerror("Selection", "Veuillez selectionner un étudiant à supprimer")
 
     def rafraichirEtudiant(self):
-        codeLabelEtudiantText['state']='normal'
+        codeLabelFormationText['state']= 'normal'
 
-        codeLabelEtudiantText.delete(0, END)
-        nomLabelEtudiantText.delete(0, END)
+        codeLabelFormationText.delete(0, END)
+        intituleLabelFormationText.delete(0, END)
         prenomLabelEtudiantText.delete(0, END)
         emailLabelEtudiantText.delete(0, END)
         adresseLabelEtudiantText.delete("1.0", END)
 
         #Pour change la couleur des bg au momnent du rafraichir
-        codeLabelEtudiantText['bg']= "white"
-        nomLabelEtudiantText['bg']= "white"
+        codeLabelFormationText['bg']= "white"
+        intituleLabelFormationText['bg']= "white"
         prenomLabelEtudiantText['bg']= "white"
         emailLabelEtudiantText['bg']= "white"
         adresseLabelEtudiantText['bg']= "white"
