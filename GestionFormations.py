@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 import sqlite3
 
 
+
 class GestionFormations:
     def __init__(self, root):
         self.root = root
@@ -34,8 +35,8 @@ class GestionFormations:
         menuFrame.place(x=20, y=50, width=0.97 * largeur_ecran, height=80)
 
         # ========les bouton des differents menu principale =======================
-        gestionFormationButon = Button(menuFrame, text="Gestion des Formations", font=('ubuntu', 16, 'bold'), width=23,
-                                       cursor='hand2', command=self.gestionFormations)
+        gestionFormationButon = Button(menuFrame, text="Gestion des Etudiants", font=('ubuntu', 16, 'bold'), width=23,
+                                       cursor='hand2', command=self.gestionEtudiants)
         gestionFormationButon.grid(row=0, column=1, padx=10, pady=10)
 
         gestionInscriptionButon = Button(menuFrame, text="Gestion des inscriptions", font=('ubuntu', 16, 'bold'),
@@ -230,8 +231,9 @@ class GestionFormations:
         codeLabelFormationText.insert(END, ligne[0])
         intituleLabelFormationText.insert(END, ligne[1])
         langueLabelFormationText.insert(END, ligne[2])
+        niveauLabelFormationText.insert(END, ligne[3])
         objectifLabelFormationText.insert(END, ligne[4])
-        niveauLabelFormationText.insert(END, ligne[5])
+
 
         #Pour rendre le INE verrouiller non modifiable
         codeLabelFormationText['state']= 'disabled'
@@ -364,7 +366,7 @@ class GestionFormations:
         cursor.close()
         connexion.close()
 
-    def gestionFormations(self):
+    def gestionEtudiants(self):
         pass
 
     def gestionInscriptions(self):
