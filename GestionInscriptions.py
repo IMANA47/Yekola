@@ -49,7 +49,7 @@ class GestionInscriptions:
 
         # ========Formulaire de saisi des données des etudiants =======================
         manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
-        manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=500)
+        manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=400)
 
         titleLabel = Label(manageFrame, text="Inscription à une formation", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
                            fg='white')
@@ -79,28 +79,28 @@ class GestionInscriptions:
                                        width=30)
         emailLabelEtudiantText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
 
+        formationLabel = Label(manageFrame,text="Formations ", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
+                                   fg='white')
+        formationLabel.grid(row=5, column=0, pady=10, sticky='w')
+
+        formationDeroulant = ttk.Combobox(manageFrame, font=('Times new roman', 12))
+        formationDeroulant['values'] = "Exemples"
+        formationDeroulant.grid(row=5, column=1, padx=10, pady=10, sticky='w')
+
 
         # ========ajout du espace des boutons d'action de gestion  des etudiants =================
         boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
-        boutonFrame.place(x=20, y=400, width=0.28 * largeur_ecran, height=70)
+        boutonFrame.place(x=150, y=300, width=0.18 * largeur_ecran, height=70)
 
         # ========ajout des boutons d'action de gestions des etudiants =================
-        enregistreButton = Button(boutonFrame, text='Enregistrer', width=8, height=2, command=self.enregistrerEtudiant,
+        inscrireButton = Button(boutonFrame, text='Inscrire', width=8, height=2, command=self.inscrireEtudiant,
                                   cursor='hand2')
-        enregistreButton.grid(row=0, column=0, padx=10, pady=10)
+        inscrireButton.grid(row=0, column=1, padx=30, pady=5)
 
-        modifierButton = Button(boutonFrame, text='Modifier', width=8, height=2, command=self.modifierEtudiant,
+        desinscrireButton = Button(boutonFrame, text='Modifier', width=8, height=2, command=self.desinscrireEtudiant,
                                 cursor='hand2')
-        modifierButton.grid(row=0, column=1, padx=10, pady=10)
-
-        supprimerButton = Button(boutonFrame, text='Supprimer', width=8, height=2, command=self.supprimerEtudiant,
-                                 cursor='hand2')
-        supprimerButton.grid(row=0, column=2, padx=10, pady=10)
-
-        rafraichirButton = Button(boutonFrame, text='Rafraichir', width=8, height=2, command=self.rafraichirEtudiant,
-                                  cursor='hand2')
-        rafraichirButton.grid(row=0, column=3, padx=10, pady=10)
-
+        desinscrireButton.grid(row=0, column=2, padx=10, pady=10)
+        """"
         # ========Frame affciche des données des etudiants =======================
         detailsFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645 * largeur_ecran, height=500)
@@ -154,7 +154,13 @@ class GestionInscriptions:
 
         self.afficherEtudiants()
         etudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
+        """
 
+
+    def inscrireEtudiant(self):
+        pass
+    def desinscrireEtudiant(self):
+        pass
 
     def gestionFormations(self):
         pass
