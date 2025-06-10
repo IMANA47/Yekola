@@ -23,8 +23,8 @@ class GestionFormations:
         global codeLabelFormationText
         global intituleLabelFormationText
         global langueLabelFormationText
-        global adresseLabelEtudiantText
-        global emailLabelEtudiantText
+        global niveauLabelFormationText
+        global objectifLabelFormationText
         global  rechercheText
 
         global etudiantTable
@@ -74,16 +74,16 @@ class GestionFormations:
         emailLabelEtudiant = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                    fg='white')
         emailLabelEtudiant.grid(row=4, column=0, pady=10, sticky='w')
-        emailLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
-                                       width=30)
-        emailLabelEtudiantText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
+        objectifLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
+                                           width=30)
+        objectifLabelFormationText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
 
         adresseLabelEtudiant = Label(manageFrame, text="Objectif:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                      fg='white')
         adresseLabelEtudiant.grid(row=5, column=0, pady=10, sticky='w')
-        adresseLabelEtudiantText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",height=1.70,
-                                         width=30)
-        adresseLabelEtudiantText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
+        niveauLabelFormationText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", height=1.70,
+                                        width=30)
+        niveauLabelFormationText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
 
 
 
@@ -166,7 +166,7 @@ class GestionFormations:
     # Les fonction d'action des buttons
     def enregistrerEtudiant(self):
 
-        is_valid = validate_email(emailLabelEtudiantText.get())
+        is_valid = validate_email(objectifLabelFormationText.get())
         champs = []
         if codeLabelFormationText.get() == "":
             champs.append(codeLabelFormationText)
@@ -177,11 +177,11 @@ class GestionFormations:
         if langueLabelFormationText.get() == "":
             champs.append(langueLabelFormationText)
 
-        if emailLabelEtudiantText.get() == "":
-            champs.append(emailLabelEtudiantText)
+        if objectifLabelFormationText.get() == "":
+            champs.append(objectifLabelFormationText)
 
-        if len(adresseLabelEtudiantText.get(1.0, END +'-1c')) == 0:
-            champs.append(adresseLabelEtudiantText)
+        if len(niveauLabelFormationText.get(1.0, END + '-1c')) == 0:
+            champs.append(niveauLabelFormationText)
 
         if champs != []:
             for champ in champs:
@@ -193,7 +193,7 @@ class GestionFormations:
 
         if not (is_valid):
             messagebox.showerror("Erreurs", "L'email que vous avez saisi n'est pas valide")
-            emailLabelEtudiantText['bg'] = "#C60E0E"
+            objectifLabelFormationText['bg'] = "#C60E0E"
         else:
             database = "database/data_base_yekola.db"
             connexion = sqlite3.connect(database)
@@ -209,7 +209,7 @@ class GestionFormations:
 
             else:
                 data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), langueLabelFormationText.get(),
-                        emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END),)
+                        objectifLabelFormationText.get(), niveauLabelFormationText.get("1.0", END),)
                 req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation, niveau_formation, objectif,) VALUES (?,?,?,?,?,)"
                 cursor.execute(req, data)
                 connexion.commit()
@@ -232,16 +232,16 @@ class GestionFormations:
         codeLabelFormationText.delete(0, END)
         intituleLabelFormationText.delete(0, END)
         langueLabelFormationText.delete(0, END)
-        emailLabelEtudiantText.delete(0, END)
-        adresseLabelEtudiantText.delete('1.0', END)
+        objectifLabelFormationText.delete(0, END)
+        niveauLabelFormationText.delete('1.0', END)
 
 
 
         codeLabelFormationText.insert(END, ligne[0])
         intituleLabelFormationText.insert(END, ligne[1])
         langueLabelFormationText.insert(END, ligne[2])
-        emailLabelEtudiantText.insert(END, ligne[3])
-        adresseLabelEtudiantText.insert(END, ligne[4])
+        objectifLabelFormationText.insert(END, ligne[3])
+        niveauLabelFormationText.insert(END, ligne[4])
 
         #Pour rendre le INE verrouiller non modifiable
         codeLabelFormationText['state']= 'disabled'
@@ -250,7 +250,7 @@ class GestionFormations:
     def modifierEtudiant(self):
 
 
-        is_valid = validate_email(emailLabelEtudiantText.get())
+        is_valid = validate_email(objectifLabelFormationText.get())
         champs = []
         if intituleLabelFormationText.get() == "":
             champs.append(intituleLabelFormationText)
@@ -258,11 +258,11 @@ class GestionFormations:
         if langueLabelFormationText.get() == "":
             champs.append(langueLabelFormationText)
 
-        if emailLabelEtudiantText.get() == "":
-            champs.append(emailLabelEtudiantText)
+        if objectifLabelFormationText.get() == "":
+            champs.append(objectifLabelFormationText)
 
-        if len(adresseLabelEtudiantText.get(1.0, END +'-1c')) == 0:
-            champs.append(adresseLabelEtudiantText)
+        if len(niveauLabelFormationText.get(1.0, END + '-1c')) == 0:
+            champs.append(niveauLabelFormationText)
 
         if champs != []:
             for champ in champs:
@@ -279,7 +279,7 @@ class GestionFormations:
 
             # Verification si l'identifiant est double
             n = codeLabelFormationText.get()
-            m = emailLabelEtudiantText.get()
+            m = objectifLabelFormationText.get()
             requete = "SELECT* FROM etudiants WHERE ine != :ine AND email = :email"
             cursor.execute(requete, {'ine': n, 'email': m})
             result = cursor.fetchall()
@@ -287,7 +287,7 @@ class GestionFormations:
                 messagebox.showerror("Erreurs", "L'identifiant de l'etudiant est déja enrégistrer !!!")
 
             # Verification si l'email n'est double
-            em = emailLabelEtudiantText.get()
+            em = objectifLabelFormationText.get()
             requeteEmail = "SELECT* FROM etudiants WHERE email = :email"
             cursor.execute(requeteEmail, {'email': em})
 
@@ -297,7 +297,7 @@ class GestionFormations:
 
             else:
                 data = (intituleLabelFormationText.get(), langueLabelFormationText.get(),
-                        emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END), villeLabelEtudiantText.get(), ineLabelEtudiantText.get())
+                        objectifLabelFormationText.get(), niveauLabelFormationText.get("1.0", END), villeLabelEtudiantText.get(), ineLabelEtudiantText.get())
                 req = "UPDATE  etudiants SET nom_etudiant= ?, prenom_etudiant= ?, email= ?, adresse= ?, ville= ? WHERE ine = ?"
                 cursor.execute(req, data)
                 connexion.commit()
@@ -341,15 +341,15 @@ class GestionFormations:
         codeLabelFormationText.delete(0, END)
         intituleLabelFormationText.delete(0, END)
         langueLabelFormationText.delete(0, END)
-        emailLabelEtudiantText.delete(0, END)
-        adresseLabelEtudiantText.delete("1.0", END)
+        objectifLabelFormationText.delete(0, END)
+        niveauLabelFormationText.delete("1.0", END)
 
         #Pour change la couleur des bg au momnent du rafraichir
         codeLabelFormationText['bg']= "white"
         intituleLabelFormationText['bg']= "white"
         langueLabelFormationText['bg']= "white"
-        emailLabelEtudiantText['bg']= "white"
-        adresseLabelEtudiantText['bg']= "white"
+        objectifLabelFormationText['bg']= "white"
+        niveauLabelFormationText['bg']= "white"
 
     def rechercherPar(self):
         database = "database/data_base_yekola.db"
