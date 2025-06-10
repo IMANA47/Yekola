@@ -49,48 +49,48 @@ class GestionInscriptions:
 
         # ========Formulaire de saisi des données des etudiants =======================
         manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
-        manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=400)
+        manageFrame.place(x=20, y=128, width=0.32 * largeur_ecran, height=310)
 
-        titleLabel = Label(manageFrame, text="Inscription à une formation", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
+        titleLabel = Label(manageFrame, text="Inscription à une formation", font=('ubuntu', 14, 'bold'), bg='#1E02F2',
                            fg='white')
-        titleLabel.grid(row=0, columnspan=2, pady=15)
+        titleLabel.grid(row=0, columnspan=2, pady=10)
 
         # ========Champs de remplisage des infos sur formulaire de saisi des données des etudiants =======================
         ineLabelEtudiant = Label(manageFrame, text="INE:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        ineLabelEtudiant.grid(row=1, column=0, pady=10, sticky='w')
+        ineLabelEtudiant.grid(row=1, column=0, pady=2, sticky='w')
         ineLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
-        ineLabelEtudiantText.grid(row=1, column=1, padx=10, pady=10, sticky='w')
+        ineLabelEtudiantText.grid(row=1, column=1, padx=10, pady=2, sticky='w')
 
         nomLabelEtudiant = Label(manageFrame, text="Nom:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        nomLabelEtudiant.grid(row=2, column=0, pady=10, sticky='w')
+        nomLabelEtudiant.grid(row=2, column=0, pady=4, sticky='w')
         nomLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
-        nomLabelEtudiantText.grid(row=2, column=1, padx=10, pady=10, sticky='w')
+        nomLabelEtudiantText.grid(row=2, column=1, padx=10, pady=4, sticky='w')
 
         prenomLabelEtudiant = Label(manageFrame, text="Prénom:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        prenomLabelEtudiant.grid(row=3, column=0, pady=10, sticky='w')
+        prenomLabelEtudiant.grid(row=3, column=0, pady=4, sticky='w')
         prenomLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
                                         width=30)
-        prenomLabelEtudiantText.grid(row=3, column=1, padx=10, pady=10, sticky='w')
+        prenomLabelEtudiantText.grid(row=3, column=1, padx=10, pady=4, sticky='w')
 
         emailLabelEtudiant = Label(manageFrame, text="Adresse email:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                    fg='white')
-        emailLabelEtudiant.grid(row=4, column=0, pady=10, sticky='w')
+        emailLabelEtudiant.grid(row=4, column=0, pady=4, sticky='w')
         emailLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
                                        width=30)
-        emailLabelEtudiantText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
+        emailLabelEtudiantText.grid(row=4, column=1, padx=10, pady=4, sticky='w')
 
         formationLabel = Label(manageFrame,text="Formations ", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                    fg='white')
-        formationLabel.grid(row=5, column=0, pady=10, sticky='w')
+        formationLabel.grid(row=5, column=0, pady=4, sticky='w')
 
         formationDeroulant = ttk.Combobox(manageFrame, font=('Times new roman', 12))
         formationDeroulant['values'] = "Exemples"
-        formationDeroulant.grid(row=5, column=1, padx=10, pady=10, sticky='w')
+        formationDeroulant.grid(row=5, column=1, padx=10, pady=4, sticky='w')
 
 
         # ========ajout du espace des boutons d'action de gestion  des etudiants =================
         boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
-        boutonFrame.place(x=150, y=300, width=0.18 * largeur_ecran, height=70)
+        boutonFrame.place(x=150, y=220, width=0.18 * largeur_ecran, height=70)
 
         # ========ajout des boutons d'action de gestions des etudiants =================
         inscrireButton = Button(boutonFrame, text='Inscrire', width=8, height=2, command=self.inscrireEtudiant,
