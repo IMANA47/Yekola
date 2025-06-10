@@ -4,7 +4,7 @@ from validate_email import validate_email
 import sqlite3
 
 
-class GestionEtudiants:
+class GestionFormations:
     def __init__(self, root):
         self.root = root
         self.root.title("Système de gestion d'un établissement de formations ")
@@ -425,5 +425,5 @@ class GestionEtudiants:
 
 
 root = Tk()
-yekola = GestionEtudiants(root)
+yekola = GestionFormations(root)
 root.mainloop()
