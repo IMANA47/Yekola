@@ -134,7 +134,7 @@ class GestionFormations:
         defilement_x = Scrollbar(tableFrame, orient="horizontal")
         defilement_y = Scrollbar(tableFrame, orient="vertical")
 
-        formationTable = ttk.Treeview(tableFrame, columns=("code", "intitulé", "langue", "niveau", "objectif",)
+        formationTable = ttk.Treeview(tableFrame, columns=("code", "intitulé", "langue", "niveau", "objectifs",)
                                       , xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
 
         defilement_x.pack(side="bottom", fill="x")
@@ -146,7 +146,7 @@ class GestionFormations:
         formationTable.heading("intitulé", text="Nom")
         formationTable.heading("langue", text="Langue")
         formationTable.heading("niveau", text="Niveau")
-        formationTable.heading("objectif", text="Objectif")
+        formationTable.heading("objectifs", text="Objectifs")
 
 
         formationTable['show']= 'headings'
@@ -154,7 +154,7 @@ class GestionFormations:
         formationTable.column('intitulé', width=110)
         formationTable.column('langue', width=110)
         formationTable.column('niveau', width=110)
-        formationTable.column('objectif', width=230)
+        formationTable.column('objectifs', width=230)
 
 
         formationTable.pack(fill="both", expand=True)
@@ -165,8 +165,6 @@ class GestionFormations:
 
     # Les fonction d'action des buttons
     def enregistrerEtudiant(self):
-
-        is_valid = validate_email(objectifLabelFormationText.get())
         champs = []
         if codeLabelFormationText.get() == "":
             champs.append(codeLabelFormationText)
@@ -180,7 +178,7 @@ class GestionFormations:
         if objectifLabelFormationText.get() == "":
             champs.append(objectifLabelFormationText)
 
-        if len(niveauLabelFormationText.get(1.0, END + '-1c')) == 0:
+        if niveauLabelFormationText.get() == "":
             champs.append(niveauLabelFormationText)
 
         if champs != []:
@@ -190,10 +188,6 @@ class GestionFormations:
             champs.clear()
 
             return champs
-
-        if not (is_valid):
-            messagebox.showerror("Erreurs", "L'email que vous avez saisi n'est pas valide")
-            objectifLabelFormationText['bg'] = "#C60E0E"
         else:
             database = "database/data_base_yekola.db"
             connexion = sqlite3.connect(database)
@@ -209,7 +203,7 @@ class GestionFormations:
 
             else:
                 data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), langueLabelFormationText.get(),
-                        objectifLabelFormationText.get(), niveauLabelFormationText.get("1.0", END),)
+                        objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(),)
                 req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation, niveau_formation, objectif,) VALUES (?,?,?,?,?,)"
                 cursor.execute(req, data)
                 connexion.commit()
@@ -248,9 +242,6 @@ class GestionFormations:
 
 
     def modifierEtudiant(self):
-
-
-        is_valid = validate_email(objectifLabelFormationText.get())
         champs = []
         if intituleLabelFormationText.get() == "":
             champs.append(intituleLabelFormationText)
@@ -258,11 +249,11 @@ class GestionFormations:
         if langueLabelFormationText.get() == "":
             champs.append(langueLabelFormationText)
 
-        if objectifLabelFormationText.get() == "":
-            champs.append(objectifLabelFormationText)
-
-        if len(niveauLabelFormationText.get(1.0, END + '-1c')) == 0:
+        if niveauLabelFormationText.get() == "":
             champs.append(niveauLabelFormationText)
+
+        if len(objectifLabelFormationText.get(1.0, END + '-1c')) == 0:
+            champs.append(objectifLabelFormationText)
 
         if champs != []:
             for champ in champs:
@@ -297,7 +288,7 @@ class GestionFormations:
 
             else:
                 data = (intituleLabelFormationText.get(), langueLabelFormationText.get(),
-                        objectifLabelFormationText.get(), niveauLabelFormationText.get("1.0", END), villeLabelEtudiantText.get(), ineLabelEtudiantText.get())
+                        objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(), codeLabelFormationText.get(),)
                 req = "UPDATE  etudiants SET nom_etudiant= ?, prenom_etudiant= ?, email= ?, adresse= ?, ville= ? WHERE ine = ?"
                 cursor.execute(req, data)
                 connexion.commit()
