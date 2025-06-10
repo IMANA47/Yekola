@@ -73,14 +73,14 @@ class GestionFormations:
         langueLabelFormationText.grid(row=3, column=1, padx=10, pady=10, sticky='w')
 
         niveauLabelFormation = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        niveauLabelFormation.grid(row=6, column=0, pady=10, sticky='w')
+        niveauLabelFormation.grid(row=5, column=0, pady=10, sticky='w')
         niveauLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
                                          width=30)
         niveauLabelFormationText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
 
-        objectifLabelFormation = Label(manageFrame, text="Objectif:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
+        objectifLabelFormation = Label(manageFrame, text="Objectifs:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                      fg='white')
-        objectifLabelFormation.grid(row=5, column=0, pady=10, sticky='w')
+        objectifLabelFormation.grid(row=6, column=0, pady=10, sticky='w')
         objectifLabelFormationText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", height=1.70,
                                           width=30)
         objectifLabelFormationText.grid(row=6, column=1, padx=10, pady=10, sticky='w')
@@ -132,7 +132,7 @@ class GestionFormations:
         defilement_x = Scrollbar(tableFrame, orient="horizontal")
         defilement_y = Scrollbar(tableFrame, orient="vertical")
 
-        formationTable = ttk.Treeview(tableFrame, columns=("code", "intitulé", "langue","niveau", "objectifs")
+        formationTable = ttk.Treeview(tableFrame, columns=("code", "intitule", "langue","niveau", "objectifs")
                                       , xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
 
         defilement_x.pack(side="bottom", fill="x")
@@ -141,14 +141,14 @@ class GestionFormations:
         defilement_y.config(command=formationTable.yview)
 
         formationTable.heading("code", text="Code")
-        formationTable.heading("intitulé", text="Intitulé")
+        formationTable.heading("intitule", text="Intitulé")
         formationTable.heading("langue", text="Langue")
         formationTable.heading("niveau", text="Niveau")
         formationTable.heading("objectifs", text="Objectif")
 
         formationTable['show']= 'headings'
         formationTable.column('code', width=70)
-        formationTable.column('intitulé', width=150)
+        formationTable.column('intitule', width=150)
         formationTable.column('langue', width=130)
         formationTable.column('niveau', width=100)
         formationTable.column('objectifs', width=300)
@@ -193,23 +193,23 @@ class GestionFormations:
 
             # Verification si l'identifiant est double
             n = codeLabelFormationText.get()
-            requete = "SELECT* FROM etudiants WHERE ine = :ine"
-            cursor.execute(requete, {'ine': n})
+            requete = "SELECT* FROM formations WHERE code_formations = :code_formations"
+            cursor.execute(requete, {'code_formations': n})
             result = cursor.fetchall()
             if len(result) > 0:
-                messagebox.showerror("Erreurs", "Le de la formation est déja enrégistrer !!!")
+                messagebox.showerror("Erreurs", "Code de la formation est déja enrégistrer !!!")
 
             else:
                 data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), langueLabelFormationText.get(),
-                         objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(),)
-                req = "INSERT INTO etudiants(ine, nom_etudiant, prenom_etudiant, email, adresse, ville) VALUES (?,?,?,?,?,?)"
+                        niveauLabelFormationText.get(), objectifLabelFormationText.get("1.0", END),)
+                req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation,niveau_formation ,objectif,) VALUES (?,?,?,?,?)"
                 cursor.execute(req, data)
                 connexion.commit()
                 cursor.close()
                 connexion.close()
 
-                messagebox.showinfo("Enregistrement d'un étudiant",
-                                "L'enregistrement de l'etudiant " + intituleLabelFormationText.get() + " " + langueLabelFormationText.get() + " a été enregistré ")
+                messagebox.showinfo("Enregistrement de la formations",
+                                "L'enregistrement de la formation " + intituleLabelFormationText.get() + " a été enregistré ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
 
@@ -268,29 +268,29 @@ class GestionFormations:
 
             # Verification si l'identifiant est double
             n = codeLabelFormationText.get()
-            requete = "SELECT* FROM etudiants WHERE ine != :ine,"
-            cursor.execute(requete, {'ine': n,})
+            requete = "SELECT* FROM formations WHERE code_formations != :code_formations,"
+            cursor.execute(requete, {'code_formations': n,})
             result = cursor.fetchall()
             if len(result) > 0:
-                messagebox.showerror("Erreurs", "L'identifiant de l'etudiant est déja enrégistrer !!!")
+                messagebox.showerror("Erreurs", "Le code de la formation est déja enrégistrer !!!")
 
             else:
                 data = (intituleLabelFormationText.get(), langueLabelFormationText.get(),
                         objectifLabelFormationText.get("1.0", END), niveauLabelFormationText.get(), codeLabelFormationText.get())
-                req = "UPDATE  etudiants SET nom_etudiant= ?, prenom_etudiant= ?, email= ?, adresse= ?, ville= ? WHERE ine = ?"
+                req = "UPDATE  formations SET intitule_formation= ?, langue_formation= ?, niveau= ?, objectif= ?, WHERE code_formations = ?"
                 cursor.execute(req, data)
                 connexion.commit()
                 cursor.close()
                 connexion.close()
 
-                messagebox.showinfo("Modification d'un étudiant",
-                                "Modification de l'etudiant " + intituleLabelFormationText.get() + " " + langueLabelFormationText.get() + " a été effectuez ")
+                messagebox.showinfo("Modification de la formation",
+                                "Modification de la formation " + intituleLabelFormationText.get() + " a été effectuez ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
     #Methode pour suppresion
     def supprimerEtudiant(self):
         if codeLabelFormationText.get() != "":
-            supp = messagebox.askyesno("Supprimer", "Voulez vous supprimer cet étudiant ?")
+            supp = messagebox.askyesno("Supprimer", "Voulez vous supprimer cet formation ?")
             if supp<=0:
                 self.afficherEtudiants()
             else:
@@ -299,20 +299,19 @@ class GestionFormations:
                 cursor = connexion.cursor()
 
                 data = (codeLabelFormationText.get(),)
-                req = "DELETE FROM etudiants WHERE ine=?"
+                req = "DELETE FROM formations WHERE code_formations=?"
                 cursor.execute(req, data)
 
                 connexion.commit()
                 cursor.close()
                 connexion.close()
 
-                messagebox.showinfo("Confirmation de suppression", "L'etudiant a bien été supprimé")
-
+                messagebox.showinfo("Confirmation de suppression", "La formation a bien été supprimé")
 
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
         else:
-            messagebox.showerror("Selection", "Veuillez selectionner un étudiant à supprimer")
+            messagebox.showerror("Selection", "Veuillez selectionner une formation à supprimer")
 
     def rafraichirEtudiant(self):
         codeLabelFormationText['state']= 'normal'
@@ -336,9 +335,8 @@ class GestionFormations:
         cursor = connexion.cursor()
 
         b = rechercheText.get()
-
-        req = "SELECT * FROM etudiants WHERE nom_etudiant = :nom or email = :email"
-        cursor.execute(req, {'nom': b, 'email': b})
+        req = "SELECT * FROM etudiants WHERE intitule_formation = :intitule or langue = :langue"
+        cursor.execute(req, {'intitule': b, 'langue': b})
         result = cursor.fetchall()
 
         if len(result) > 0:
@@ -346,7 +344,7 @@ class GestionFormations:
             for row in result:
                 formationTable.insert('', END, values = row)
         else:
-            messagebox.showinfo("Recherche", "L'etudiant rechercher n'existe pas")
+            messagebox.showinfo("Recherche", "La formation rechercher n'existe pas")
         cursor.close()
         connexion.close()
 
@@ -356,7 +354,7 @@ class GestionFormations:
         connexion = sqlite3.connect(database)
         cursor = connexion.cursor()
 
-        req = "SELECT * FROM etudiants"
+        req = "SELECT * FROM formations"
         cursor.execute(req)
         result = cursor.fetchall()
 
