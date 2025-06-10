@@ -16,8 +16,8 @@ class GestionInscriptions:
         self.root.configure(bg='#DADADA')
 
         # ========Titre de la fenetre gestion des etudiants=======================
-        titre = Label(self.root, text='Gestion des étudiants', fg="white", bd=2, relief="groove",
-                      font=('ubuntu', 20, 'bold'), padx=20, bg='#1E02F2')
+        titre = Label(self.root, text='Gestion des inscriptions', fg="white", bd=2, relief="groove",
+                      font=('ubuntu', 20, 'bold'), padx=20, bg='#1E02F1')
         titre.pack(side="top", fill="x")
 
         global ineLabelEtudiantText
@@ -39,8 +39,8 @@ class GestionInscriptions:
                                        cursor='hand2', command=self.gestionFormations)
         gestionFormationButon.grid(row=0, column=1, padx=10, pady=10)
 
-        gestionInscriptionButon = Button(menuFrame, text="Gestion des inscriptions", font=('ubuntu', 16, 'bold'),
-                                         width=23, cursor='hand2', command=self.gestionInscriptions)
+        gestionInscriptionButon = Button(menuFrame, text="Gestion des étudiants", font=('ubuntu', 16, 'bold'),
+                                         width=23, cursor='hand2', command=self.gestionEtudiants)
         gestionInscriptionButon.grid(row=0, column=2, padx=10, pady=10)
 
         gestionFormateurButon = Button(menuFrame, text="Gestion des formateurs", font=('ubuntu', 16, 'bold'), width=23,
@@ -51,7 +51,7 @@ class GestionInscriptions:
         manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=500)
 
-        titleLabel = Label(manageFrame, text="Information sur l'etudiant", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
+        titleLabel = Label(manageFrame, text="Inscription à une formation", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
                            fg='white')
         titleLabel.grid(row=0, columnspan=2, pady=15)
 
@@ -79,18 +79,6 @@ class GestionInscriptions:
                                        width=30)
         emailLabelEtudiantText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
 
-        adresseLabelEtudiant = Label(manageFrame, text="Adresse:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
-                                     fg='white')
-        adresseLabelEtudiant.grid(row=5, column=0, pady=10, sticky='w')
-        adresseLabelEtudiantText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",height=1.70,
-                                         width=30)
-        adresseLabelEtudiantText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
-
-        villeLabelEtudiant = Label(manageFrame, text="Ville:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        villeLabelEtudiant.grid(row=6, column=0, pady=10, sticky='w')
-        villeLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
-                                       width=30)
-        villeLabelEtudiantText.grid(row=6, column=1, padx=10, pady=10, sticky='w')
 
         # ========ajout du espace des boutons d'action de gestion  des etudiants =================
         boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
@@ -167,6 +155,13 @@ class GestionInscriptions:
         self.afficherEtudiants()
         etudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
 
+
+    def gestionFormations(self):
+        pass
+    def gestionEtudiants(self):
+        pass
+    def gestionFormateur(self):
+        pass
 
 
 
