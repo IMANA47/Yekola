@@ -27,7 +27,7 @@ class GestionFormations:
         global objectifLabelFormationText
         global  rechercheText
 
-        global etudiantTable
+        global formationTable
 
         # ========Frame menu principale =======================
         menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
@@ -65,25 +65,25 @@ class GestionFormations:
         intituleLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
         intituleLabelFormationText.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
-        prenomLabelEtudiant = Label(manageFrame, text="Langue:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        prenomLabelEtudiant.grid(row=3, column=0, pady=10, sticky='w')
+        langueLabelFormation = Label(manageFrame, text="Langue:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        langueLabelFormation.grid(row=3, column=0, pady=10, sticky='w')
         langueLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
                                          width=30)
         langueLabelFormationText.grid(row=3, column=1, padx=10, pady=10, sticky='w')
 
-        emailLabelEtudiant = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
+        niveauLabelFormation = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                    fg='white')
-        emailLabelEtudiant.grid(row=4, column=0, pady=10, sticky='w')
-        objectifLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
+        niveauLabelFormation.grid(row=4, column=0, pady=10, sticky='w')
+        niveauLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
                                            width=30)
-        objectifLabelFormationText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
+        niveauLabelFormationText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
 
-        adresseLabelEtudiant = Label(manageFrame, text="Objectif:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
+        objectifLabelFormation = Label(manageFrame, text="Objectifs:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                      fg='white')
-        adresseLabelEtudiant.grid(row=5, column=0, pady=10, sticky='w')
-        niveauLabelFormationText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", height=1.70,
+        objectifLabelFormation.grid(row=5, column=0, pady=10, sticky='w')
+        objectifLabelFormationText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", height=1.70,
                                         width=30)
-        niveauLabelFormationText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
+        objectifLabelFormationText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
 
 
 
@@ -134,33 +134,33 @@ class GestionFormations:
         defilement_x = Scrollbar(tableFrame, orient="horizontal")
         defilement_y = Scrollbar(tableFrame, orient="vertical")
 
-        etudiantTable = ttk.Treeview(tableFrame, columns=("code", "intitulé", "langue", "niveau", "objectif",)
-                                     ,xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
+        formationTable = ttk.Treeview(tableFrame, columns=("code", "intitulé", "langue", "niveau", "objectif",)
+                                      , xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
 
         defilement_x.pack(side="bottom", fill="x")
         defilement_y.pack(side="right", fill="x")
-        defilement_x.config(command=etudiantTable.xview)
-        defilement_y.config(command=etudiantTable.yview)
+        defilement_x.config(command=formationTable.xview)
+        defilement_y.config(command=formationTable.yview)
 
-        etudiantTable.heading("code", text="Code")
-        etudiantTable.heading("intitulé", text="Nom")
-        etudiantTable.heading("langue", text="Langue")
-        etudiantTable.heading("niveau", text="Niveau")
-        etudiantTable.heading("objectif", text="Objectif")
-
-
-        etudiantTable['show']='headings'
-        etudiantTable.column('code', width=70)
-        etudiantTable.column('intitulé', width=110)
-        etudiantTable.column('langue', width=110)
-        etudiantTable.column('niveau', width=110)
-        etudiantTable.column('objectif', width=230)
+        formationTable.heading("code", text="Code")
+        formationTable.heading("intitulé", text="Nom")
+        formationTable.heading("langue", text="Langue")
+        formationTable.heading("niveau", text="Niveau")
+        formationTable.heading("objectif", text="Objectif")
 
 
-        etudiantTable.pack(fill="both", expand=True)
+        formationTable['show']= 'headings'
+        formationTable.column('code', width=70)
+        formationTable.column('intitulé', width=110)
+        formationTable.column('langue', width=110)
+        formationTable.column('niveau', width=110)
+        formationTable.column('objectif', width=230)
+
+
+        formationTable.pack(fill="both", expand=True)
 
         self.afficherEtudiants()
-        etudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
+        formationTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
 
 
     # Les fonction d'action des buttons
@@ -224,8 +224,8 @@ class GestionFormations:
 
     def recupererDonneesSelectionnees(self, evenement):
         codeLabelFormationText['state']= 'normal'
-        ligne_selectionnee = etudiantTable.focus()
-        contenu = etudiantTable.item(ligne_selectionnee)
+        ligne_selectionnee = formationTable.focus()
+        contenu = formationTable.item(ligne_selectionnee)
         #Pour recuperer les valeurs
         ligne = contenu['values']
 
@@ -363,9 +363,9 @@ class GestionFormations:
         result = cursor.fetchall()
 
         if len(result) > 0:
-            etudiantTable.delete(*etudiantTable.get_children())
+            formationTable.delete(*formationTable.get_children())
             for row in result:
-                etudiantTable.insert('', END, values = row)
+                formationTable.insert('', END, values = row)
         else:
             messagebox.showinfo("Recherche", "L'etudiant rechercher n'existe pas")
         cursor.close()
@@ -382,9 +382,9 @@ class GestionFormations:
         result = cursor.fetchall()
 
         if len(result) > 0:
-            etudiantTable.delete(*etudiantTable.get_children())
+            formationTable.delete(*formationTable.get_children())
             for row in result:
-                etudiantTable.insert('', END, values = row)
+                formationTable.insert('', END, values = row)
         cursor.close()
         connexion.close()
 
