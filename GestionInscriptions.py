@@ -28,7 +28,7 @@ class GestionInscriptions:
         global villeLabelEtudiantText
         global  rechercheText
 
-        global etudiantTable
+        global formationsEtudiantTable
 
         # ========Frame menu principale =======================
         menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
@@ -100,10 +100,44 @@ class GestionInscriptions:
         desinscrireButton = Button(boutonFrame, text='Modifier', width=8, height=2, command=self.desinscrireEtudiant,
                                 cursor='hand2')
         desinscrireButton.grid(row=0, column=2, padx=10, pady=10)
-        """"
+
+        #=======Frame pour affichage des formations auxquelles est inscrit un etudiant =========
+        formationsEtudiantFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
+        formationsEtudiantFrame.place(x=20, y=445, width=0.32 * largeur_ecran, height=205)
+
+        formationEtudiantLabel = Label(formationsEtudiantFrame, text="Formations auxquelles est inscrit : "+ nomLabelEtudiantText.get(),fg="white",font=('ubuntu', 12, 'bold'), bg='#1E02F2')
+        formationEtudiantLabel.grid(row=0, column=0, pady=5, padx=5, sticky='w')
+
+        formationsTableFrame = Frame(formationsEtudiantFrame, bd=2, relief='groove', bg='#1E02F2')
+        formationsTableFrame.place( x=3, y=35, width=0.32 * largeur_ecran, height=165)
+
+        defilement_x = Scrollbar(formationsTableFrame, orient="horizontal")
+        defilement_y = Scrollbar(formationsTableFrame, orient="vertical")
+
+        formationsEtudiantTable = ttk.Treeview(formationsTableFrame, columns=("code", "intitulé", "date_inscription")
+                                               , xscrollcommand=defilement_x.set, yscrollcommand=defilement_y.set)
+
+        defilement_x.pack(side="bottom", fill="x")
+        defilement_y.pack(side="right", fill="x")
+        defilement_x.config(command=formationsEtudiantTable.xview)
+        defilement_y.config(command=formationsEtudiantTable.yview)
+
+        formationsEtudiantTable.heading("code", text="Code")
+        formationsEtudiantTable.heading("intitulé", text="Intitulé")
+        formationsEtudiantTable.heading("date_inscription", text="Date d'inscription")
+
+        formationsEtudiantTable['show'] = 'headings'
+        formationsEtudiantTable.column('code', width=10)
+        formationsEtudiantTable.column('intitulé', width=45)
+        formationsEtudiantTable.column('date_inscription', width=45)
+
+        formationsEtudiantTable.pack(fill="both", expand=True)
+
+        """""
         # ========Frame affciche des données des etudiants =======================
         detailsFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645 * largeur_ecran, height=500)
+
 
         # ========Affichage du champs de recherche =======================
         rechercheLabel = Label(detailsFrame, text='Recherhcer par nom ou par email : ', font=('ubuntu', 12, 'bold'),
@@ -127,33 +161,33 @@ class GestionInscriptions:
         defilement_x = Scrollbar(tableFrame, orient="horizontal")
         defilement_y = Scrollbar(tableFrame, orient="vertical")
 
-        etudiantTable = ttk.Treeview(tableFrame, columns=("ine", "nom", "prenom", "email", "adresse", "ville")
-                                     ,xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
+        formationsEtudiantTable = ttk.Treeview(tableFrame, columns=("ine", "nom", "prenom", "email", "adresse", "ville")
+                                               , xscrollcommand = defilement_x.set, yscrollcommand=defilement_y.set)
 
         defilement_x.pack(side="bottom", fill="x")
         defilement_y.pack(side="right", fill="x")
-        defilement_x.config(command=etudiantTable.xview)
-        defilement_y.config(command=etudiantTable.yview)
+        defilement_x.config(command=formationsEtudiantTable.xview)
+        defilement_y.config(command=formationsEtudiantTable.yview)
 
-        etudiantTable.heading("ine", text="INE")
-        etudiantTable.heading("nom", text="Nom")
-        etudiantTable.heading("prenom", text="Prénom")
-        etudiantTable.heading("email", text="Email")
-        etudiantTable.heading("adresse", text="Adresse")
-        etudiantTable.heading("ville", text="Ville")
+        formationsEtudiantTable.heading("ine", text="INE")
+        formationsEtudiantTable.heading("nom", text="Nom")
+        formationsEtudiantTable.heading("prenom", text="Prénom")
+        formationsEtudiantTable.heading("email", text="Email")
+        formationsEtudiantTable.heading("adresse", text="Adresse")
+        formationsEtudiantTable.heading("ville", text="Ville")
 
-        etudiantTable['show']='headings'
-        etudiantTable.column('ine', width=70)
-        etudiantTable.column('nom', width=110)
-        etudiantTable.column('prenom', width=110)
-        etudiantTable.column('email', width=110)
-        etudiantTable.column('adresse', width=230)
-        etudiantTable.column('ville', width=110)
+        formationsEtudiantTable['show']= 'headings'
+        formationsEtudiantTable.column('ine', width=70)
+        formationsEtudiantTable.column('nom', width=110)
+        formationsEtudiantTable.column('prenom', width=110)
+        formationsEtudiantTable.column('email', width=110)
+        formationsEtudiantTable.column('adresse', width=230)
+        formationsEtudiantTable.column('ville', width=110)
 
-        etudiantTable.pack(fill="both", expand=True)
+        formationsEtudiantTable.pack(fill="both", expand=True)
 
         self.afficherEtudiants()
-        etudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
+        formationsEtudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
         """
 
 
