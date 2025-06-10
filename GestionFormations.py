@@ -15,8 +15,8 @@ class GestionFormations:
         self.root.geometry('%dx%d' % (largeur_ecran, hauteur_ecran))
         self.root.configure(bg='#DADADA')
 
-        # ========Titre de la fenetre gestion des etudiants=======================
-        titre = Label(self.root, text='Gestion des étudiants', fg="white", bd=2, relief="groove",
+        # ========Titre de la fenetre gestion des formations=======================
+        titre = Label(self.root, text='Gestion des formations', fg="white", bd=2, relief="groove",
                       font=('ubuntu', 20, 'bold'), padx=20, bg='#1E02F2')
         titre.pack(side="top", fill="x")
 
@@ -51,46 +51,42 @@ class GestionFormations:
         manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
         manageFrame.place(x=20, y=130, width=0.32 * largeur_ecran, height=500)
 
-        titleLabel = Label(manageFrame, text="Information sur l'etudiant", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
+        titleLabel = Label(manageFrame, text="Information des formations", font=('ubuntu', 18, 'bold'), bg='#1E02F2',
                            fg='white')
         titleLabel.grid(row=0, columnspan=2, pady=15)
 
         # ========Champs de remplisage des infos sur formulaire de saisi des données des etudiants =======================
-        ineLabelEtudiant = Label(manageFrame, text="INE:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        ineLabelEtudiant = Label(manageFrame, text="Code:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
         ineLabelEtudiant.grid(row=1, column=0, pady=10, sticky='w')
         ineLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
         ineLabelEtudiantText.grid(row=1, column=1, padx=10, pady=10, sticky='w')
 
-        nomLabelEtudiant = Label(manageFrame, text="Nom:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        nomLabelEtudiant = Label(manageFrame, text="Intitulé:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
         nomLabelEtudiant.grid(row=2, column=0, pady=10, sticky='w')
         nomLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove", width=30)
         nomLabelEtudiantText.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
-        prenomLabelEtudiant = Label(manageFrame, text="Prénom:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
+        prenomLabelEtudiant = Label(manageFrame, text="Langue:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
         prenomLabelEtudiant.grid(row=3, column=0, pady=10, sticky='w')
         prenomLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
                                         width=30)
         prenomLabelEtudiantText.grid(row=3, column=1, padx=10, pady=10, sticky='w')
 
-        emailLabelEtudiant = Label(manageFrame, text="Adresse email:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
+        emailLabelEtudiant = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                    fg='white')
         emailLabelEtudiant.grid(row=4, column=0, pady=10, sticky='w')
         emailLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
                                        width=30)
         emailLabelEtudiantText.grid(row=4, column=1, padx=10, pady=10, sticky='w')
 
-        adresseLabelEtudiant = Label(manageFrame, text="Adresse:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
+        adresseLabelEtudiant = Label(manageFrame, text="Objectif:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                      fg='white')
         adresseLabelEtudiant.grid(row=5, column=0, pady=10, sticky='w')
         adresseLabelEtudiantText = Text(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",height=1.70,
                                          width=30)
         adresseLabelEtudiantText.grid(row=5, column=1, padx=10, pady=10, sticky='w')
 
-        villeLabelEtudiant = Label(manageFrame, text="Ville:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
-        villeLabelEtudiant.grid(row=6, column=0, pady=10, sticky='w')
-        villeLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
-                                       width=30)
-        villeLabelEtudiantText.grid(row=6, column=1, padx=10, pady=10, sticky='w')
+
 
         # ========ajout du espace des boutons d'action de gestion  des etudiants =================
         boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
@@ -152,7 +148,7 @@ class GestionFormations:
         etudiantTable.heading("prenom", text="Prénom")
         etudiantTable.heading("email", text="Email")
         etudiantTable.heading("adresse", text="Adresse")
-        etudiantTable.heading("ville", text="Ville")
+
 
         etudiantTable['show']='headings'
         etudiantTable.column('ine', width=70)
@@ -160,7 +156,7 @@ class GestionFormations:
         etudiantTable.column('prenom', width=110)
         etudiantTable.column('email', width=110)
         etudiantTable.column('adresse', width=230)
-        etudiantTable.column('ville', width=110)
+
 
         etudiantTable.pack(fill="both", expand=True)
 
@@ -187,9 +183,6 @@ class GestionFormations:
 
         if len(adresseLabelEtudiantText.get(1.0, END +'-1c')) == 0:
             champs.append(adresseLabelEtudiantText)
-
-        if villeLabelEtudiantText.get() == "":
-            champs.append(villeLabelEtudiantText)
 
         if champs != []:
             for champ in champs:
@@ -251,7 +244,7 @@ class GestionFormations:
         prenomLabelEtudiantText.delete(0, END)
         emailLabelEtudiantText.delete(0, END)
         adresseLabelEtudiantText.delete('1.0', END)
-        villeLabelEtudiantText.delete(0, END)
+
 
 
         ineLabelEtudiantText.insert(END, ligne[0])
@@ -259,7 +252,6 @@ class GestionFormations:
         prenomLabelEtudiantText.insert(END, ligne[2])
         emailLabelEtudiantText.insert(END, ligne[3])
         adresseLabelEtudiantText.insert(END, ligne[4])
-        villeLabelEtudiantText.insert(END, ligne[5])
 
         #Pour rendre le INE verrouiller non modifiable
         ineLabelEtudiantText['state']='disabled'
@@ -281,9 +273,6 @@ class GestionFormations:
 
         if len(adresseLabelEtudiantText.get(1.0, END +'-1c')) == 0:
             champs.append(adresseLabelEtudiantText)
-
-        if villeLabelEtudiantText.get() == "":
-            champs.append(villeLabelEtudiantText)
 
         if champs != []:
             for champ in champs:
@@ -367,7 +356,6 @@ class GestionFormations:
         prenomLabelEtudiantText.delete(0, END)
         emailLabelEtudiantText.delete(0, END)
         adresseLabelEtudiantText.delete("1.0", END)
-        villeLabelEtudiantText.delete(0, END)
 
         #Pour change la couleur des bg au momnent du rafraichir
         ineLabelEtudiantText['bg']= "white"
@@ -375,7 +363,6 @@ class GestionFormations:
         prenomLabelEtudiantText['bg']= "white"
         emailLabelEtudiantText['bg']= "white"
         adresseLabelEtudiantText['bg']= "white"
-        villeLabelEtudiantText['bg']= "white"
 
     def rechercherPar(self):
         database = "database/data_base_yekola.db"
