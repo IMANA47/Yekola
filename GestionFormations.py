@@ -22,7 +22,7 @@ class GestionFormations:
 
         global codeLabelFormationText
         global intituleLabelFormationText
-        global prenomLabelEtudiantText
+        global langueLabelFormationText
         global adresseLabelEtudiantText
         global emailLabelEtudiantText
         global  rechercheText
@@ -67,9 +67,9 @@ class GestionFormations:
 
         prenomLabelEtudiant = Label(manageFrame, text="Langue:", font=('ubuntu', 12, 'bold'), bg='#1E02F2', fg='white')
         prenomLabelEtudiant.grid(row=3, column=0, pady=10, sticky='w')
-        prenomLabelEtudiantText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
-                                        width=30)
-        prenomLabelEtudiantText.grid(row=3, column=1, padx=10, pady=10, sticky='w')
+        langueLabelFormationText = Entry(manageFrame, font=('Times new roman', 12, 'bold'), bd=2, relief="groove",
+                                         width=30)
+        langueLabelFormationText.grid(row=3, column=1, padx=10, pady=10, sticky='w')
 
         emailLabelEtudiant = Label(manageFrame, text="Niveau:", font=('ubuntu', 12, 'bold'), bg='#1E02F2',
                                    fg='white')
@@ -174,8 +174,8 @@ class GestionFormations:
         if intituleLabelFormationText.get() == "":
             champs.append(intituleLabelFormationText)
 
-        if prenomLabelEtudiantText.get() == "":
-            champs.append(prenomLabelEtudiantText)
+        if langueLabelFormationText.get() == "":
+            champs.append(langueLabelFormationText)
 
         if emailLabelEtudiantText.get() == "":
             champs.append(emailLabelEtudiantText)
@@ -208,7 +208,7 @@ class GestionFormations:
                 messagebox.showerror("Erreurs", "L'identifiant de l'etudiant est déja enrégistrer !!!")
 
             else:
-                data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), prenomLabelEtudiantText.get(),
+                data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), langueLabelFormationText.get(),
                         emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END),)
                 req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation, niveau_formation, objectif,) VALUES (?,?,?,?,?,)"
                 cursor.execute(req, data)
@@ -217,7 +217,7 @@ class GestionFormations:
                 connexion.close()
 
                 messagebox.showinfo("Enregistrement de formations",
-                                "L'enregistrement de la formations " + intituleLabelFormationText.get() + " " + prenomLabelEtudiantText.get() + " a été enregistré ")
+                                "L'enregistrement de la formations " + intituleLabelFormationText.get() + " " + langueLabelFormationText.get() + " a été enregistré ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
 
@@ -231,7 +231,7 @@ class GestionFormations:
 
         codeLabelFormationText.delete(0, END)
         intituleLabelFormationText.delete(0, END)
-        prenomLabelEtudiantText.delete(0, END)
+        langueLabelFormationText.delete(0, END)
         emailLabelEtudiantText.delete(0, END)
         adresseLabelEtudiantText.delete('1.0', END)
 
@@ -239,7 +239,7 @@ class GestionFormations:
 
         codeLabelFormationText.insert(END, ligne[0])
         intituleLabelFormationText.insert(END, ligne[1])
-        prenomLabelEtudiantText.insert(END, ligne[2])
+        langueLabelFormationText.insert(END, ligne[2])
         emailLabelEtudiantText.insert(END, ligne[3])
         adresseLabelEtudiantText.insert(END, ligne[4])
 
@@ -255,8 +255,8 @@ class GestionFormations:
         if intituleLabelFormationText.get() == "":
             champs.append(intituleLabelFormationText)
 
-        if prenomLabelEtudiantText.get() == "":
-            champs.append(prenomLabelEtudiantText)
+        if langueLabelFormationText.get() == "":
+            champs.append(langueLabelFormationText)
 
         if emailLabelEtudiantText.get() == "":
             champs.append(emailLabelEtudiantText)
@@ -296,7 +296,7 @@ class GestionFormations:
                 messagebox.showerror("Erreurs", "L'email de l'etudiant est déja enrégistrer !!!")
 
             else:
-                data = (intituleLabelFormationText.get(), prenomLabelEtudiantText.get(),
+                data = (intituleLabelFormationText.get(), langueLabelFormationText.get(),
                         emailLabelEtudiantText.get(), adresseLabelEtudiantText.get("1.0", END), villeLabelEtudiantText.get(), ineLabelEtudiantText.get())
                 req = "UPDATE  etudiants SET nom_etudiant= ?, prenom_etudiant= ?, email= ?, adresse= ?, ville= ? WHERE ine = ?"
                 cursor.execute(req, data)
@@ -305,7 +305,7 @@ class GestionFormations:
                 connexion.close()
 
                 messagebox.showinfo("Modification d'un étudiant",
-                                "Modification de l'etudiant " + intituleLabelFormationText.get() + " " + prenomLabelEtudiantText.get() + " a été effectuez ")
+                                "Modification de l'etudiant " + intituleLabelFormationText.get() + " " + langueLabelFormationText.get() + " a été effectuez ")
                 self.rafraichirEtudiant()
                 self.afficherEtudiants()
     #Methode pour suppresion
@@ -340,14 +340,14 @@ class GestionFormations:
 
         codeLabelFormationText.delete(0, END)
         intituleLabelFormationText.delete(0, END)
-        prenomLabelEtudiantText.delete(0, END)
+        langueLabelFormationText.delete(0, END)
         emailLabelEtudiantText.delete(0, END)
         adresseLabelEtudiantText.delete("1.0", END)
 
         #Pour change la couleur des bg au momnent du rafraichir
         codeLabelFormationText['bg']= "white"
         intituleLabelFormationText['bg']= "white"
-        prenomLabelEtudiantText['bg']= "white"
+        langueLabelFormationText['bg']= "white"
         emailLabelEtudiantText['bg']= "white"
         adresseLabelEtudiantText['bg']= "white"
 
