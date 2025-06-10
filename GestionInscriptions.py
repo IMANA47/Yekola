@@ -133,10 +133,10 @@ class GestionInscriptions:
 
         formationsEtudiantTable.pack(fill="both", expand=True)
 
-        """""
+
         # ========Frame affciche des données des etudiants =======================
         detailsFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
-        detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645 * largeur_ecran, height=500)
+        detailsFrame.place(x=0.34 * largeur_ecran, y=130, width=0.645 * largeur_ecran, height=520)
 
 
         # ========Affichage du champs de recherche =======================
@@ -154,9 +154,21 @@ class GestionInscriptions:
                                    command=self.afficherEtudiants)
         AfficherTousButon.grid(row=0, column=3, padx=10, pady=10)
 
+        # ========Affichage du champs de recherche des formations =======================
+        formationRechercheLabel = Label(detailsFrame, text='Selectionner une formation : ', font=('ubuntu', 12, 'bold'),
+                               bg='#1E02F2', fg='white')
+        formationRechercheLabel.grid(row=1, column=0, padx=10, pady=2, sticky='w')
+
+        rechercheFormationDeroulantText = ttk.Combobox(detailsFrame, font=('ubuntu', 12, 'bold'))
+        rechercheFormationDeroulantText['values'] = (self.recupererFormations())
+        rechercheFormationDeroulantText.grid(row=1, column=1, pady=4, padx=5, sticky ='w')
+
+        rechercheFormationButon = Button(detailsFrame, command=self.rechercherParFormation, text="Rechercher", width=10)
+        rechercheFormationButon.grid(row=1, column=2, pady=4, padx=5)
+
         # ========Frame pour afficher les resultat entrer dans le formulaire =======================
         tableFrame =Frame(detailsFrame, bd=2, relief='groove', bg='#1E02F2')
-        tableFrame.place(x=10, y=50, width=0.62 * largeur_ecran, height=440)
+        tableFrame.place(x=10, y=96, width=0.62 * largeur_ecran, height=420)
 
         defilement_x = Scrollbar(tableFrame, orient="horizontal")
         defilement_y = Scrollbar(tableFrame, orient="vertical")
@@ -188,14 +200,23 @@ class GestionInscriptions:
 
         self.afficherEtudiants()
         formationsEtudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
-        """
+
 
 
     def inscrireEtudiant(self):
         pass
     def desinscrireEtudiant(self):
         pass
-
+    def rechercherPar(self):
+        pass
+    def afficherEtudiants(self):
+        pass
+    def recupererFormations(self):
+        pass
+    def rechercherParFormation(self):
+        pass
+    def recupererDonneesSelectionnees(self):
+        pass
     def gestionFormations(self):
         pass
     def gestionEtudiants(self):
