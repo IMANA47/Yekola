@@ -267,7 +267,6 @@ class GestionEtudiants:
 
     def modifierEtudiant(self):
 
-
         is_valid = validate_email(emailLabelEtudiantText.get())
         champs = []
         if nomLabelEtudiantText.get() == "":

@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from validate_email import validate_email
 import sqlite3
 
 
@@ -202,7 +201,7 @@ class GestionFormations:
             else:
                 data = (codeLabelFormationText.get(), intituleLabelFormationText.get(), langueLabelFormationText.get(),
                         niveauLabelFormationText.get(), objectifLabelFormationText.get("1.0", END),)
-                req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation,niveau_formation ,objectif,) VALUES (?,?,?,?,?)"
+                req = "INSERT INTO formations(code_formations, intitule_formation, langue_formation, niveau_formation ,objectif) VALUES (?,?,?,?,?)"
                 cursor.execute(req, data)
                 connexion.commit()
                 cursor.close()
