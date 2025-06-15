@@ -97,8 +97,8 @@ class GestionInscriptions:
                                   cursor='hand2')
         inscrireButton.grid(row=0, column=1, padx=30, pady=5)
 
-        desinscrireButton = Button(boutonFrame, text='Modifier', width=8, height=2, command=self.desinscrireEtudiant,
-                                cursor='hand2')
+        desinscrireButton = Button(boutonFrame, text='desinscrire', width=8, height=2,cursor='hand2', command=self.desinscrireEtudiant
+                                )
         desinscrireButton.grid(row=0, column=2, padx=10, pady=10)
 
         #=======Frame pour affichage des formations auxquelles est inscrit un etudiant =========
@@ -202,15 +202,28 @@ class GestionInscriptions:
         formationsEtudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
 
 
-
     def inscrireEtudiant(self):
         pass
     def desinscrireEtudiant(self):
         pass
     def rechercherPar(self):
         pass
+    #Methode afficher etudiant
     def afficherEtudiants(self):
-        pass
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        req = "SELECT * FROM etudiants"
+        cursor.execute(req)
+        result = cursor.fetchall()
+
+        if len(result) > 0:
+            formationsEtudiantTable.delete(*formationsEtudiantTable.get_children())
+            for row in result:
+                formationsEtudiantTable.insert('', END, values=row)
+        cursor.close()
+        connexion.close()
     def recupererFormations(self):
         pass
     def rechercherParFormation(self):
