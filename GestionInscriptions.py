@@ -248,8 +248,34 @@ class GestionInscriptions:
         pass
     def rechercherParFormation(self):
         pass
-    def recupererDonneesSelectionnees(self):
-        pass
+    def recupererDonneesSelectionnees(self, evenement):
+        #Pour l'etat des champs
+        ineLabelEtudiantText['state'] = 'normal'
+        nomLabelEtudiantText['state'] = 'normal'
+        prenomLabelEtudiantText['state'] = 'normal'
+        emailLabelEtudiantText['state'] = 'normal'
+
+        ligne_selectionnee = formationsEtudiantTable.focus()
+        contenu = formationsEtudiantTable.item(ligne_selectionnee)
+        # Pour recuperer les valeurs
+        ligne = contenu['values']
+
+        ineLabelEtudiantText.delete(0, END)
+        nomLabelEtudiantText.delete(0, END)
+        prenomLabelEtudiantText.delete(0, END)
+        emailLabelEtudiantText.delete(0, END)
+
+        ineLabelEtudiantText.insert(END, ligne[0])
+        nomLabelEtudiantText.insert(END, ligne[1])
+        prenomLabelEtudiantText.insert(END, ligne[2])
+        emailLabelEtudiantText.insert(END, ligne[3])
+
+        # Pour rendre le INE verrouiller non modifiable
+        ineLabelEtudiantText['state'] = 'disabled'
+        nomLabelEtudiantText['state'] = 'disabled'
+        prenomLabelEtudiantText['state'] = 'disabled'
+        emailLabelEtudiantText['state'] = 'disabled'
+
     def gestionFormations(self):
         pass
     def gestionEtudiants(self):
