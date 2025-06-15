@@ -84,7 +84,7 @@ class GestionInscriptions:
         formationLabel.grid(row=5, column=0, pady=4, sticky='w')
 
         formationDeroulant = ttk.Combobox(manageFrame, font=('Times new roman', 12))
-        formationDeroulant['values'] = "Exemples"
+        formationDeroulant['values'] = (self.recupererFormations())
         formationDeroulant.grid(row=5, column=1, padx=10, pady=4, sticky='w')
 
 
@@ -245,9 +245,26 @@ class GestionInscriptions:
         connexion.close()
 
     def recupererFormations(self):
-        pass
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        req = "SELECT * FROM formations"
+        cursor.execute(req)
+
+        print(cursor)
+
+        result = []
+        for data in cursor :
+            result.append(data[0])
+        cursor.close()
+        connexion.close()
+        return result
+
     def rechercherParFormation(self):
         pass
+
+    #Methode pour recuperer donnees selectionné
     def recupererDonneesSelectionnees(self, evenement):
         #Pour l'etat des champs
         ineLabelEtudiantText['state'] = 'normal'
