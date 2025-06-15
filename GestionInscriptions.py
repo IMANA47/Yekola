@@ -207,7 +207,26 @@ class GestionInscriptions:
     def desinscrireEtudiant(self):
         pass
     def rechercherPar(self):
-        pass
+
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        b = rechercheText.get()
+
+        req = "SELECT * FROM etudiants WHERE nom_etudiant = :nom or email = :email"
+        cursor.execute(req, {'nom': b, 'email': b})
+        result = cursor.fetchall()
+
+        if len(result) > 0:
+            formationsEtudiantTable.delete(*formationsEtudiantTable.get_children())
+            for row in result:
+                formationsEtudiantTable.insert('', END, values = row)
+        else:
+            messagebox.showinfo("Recherche", "L'etudiant rechercher n'existe pas")
+        cursor.close()
+        connexion.close()
+
     #Methode afficher etudiant
     def afficherEtudiants(self):
         database = "database/data_base_yekola.db"
@@ -224,6 +243,7 @@ class GestionInscriptions:
                 formationsEtudiantTable.insert('', END, values=row)
         cursor.close()
         connexion.close()
+
     def recupererFormations(self):
         pass
     def rechercherParFormation(self):
