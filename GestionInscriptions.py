@@ -1,3 +1,4 @@
+from datetime import *
 from tkinter import *
 from tkinter import ttk, messagebox
 from validate_email import validate_email
@@ -29,6 +30,7 @@ class GestionInscriptions:
         global  rechercheText
 
         global formationsEtudiantTable
+        global formationDeroulant
 
         # ========Frame menu principale =======================
         menuFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
@@ -203,7 +205,40 @@ class GestionInscriptions:
 
 
     def inscrireEtudiant(self):
-        pass
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        if formationDeroulant.get() == "":
+            messagebox.showerror("Erreurs", "Veuillez choisir une formation")
+        else:
+            data1 = (ineLabelEtudiantText.get(), formationDeroulant.get())
+            req1 = "SELECT * FROM inscriptions WHERE ine_etudiant = ? AND code_formation=?"
+            cursor.execute(req1, data1)
+            result1 = cursor.fetchall()
+
+            if len(result1) != 0:
+                messagebox.showerror("Erreur", "L'étudiant ayant l'INE : " + ineLabelEtudiantText.get()+" est déja "
+                                                                                    "inscrit à la formation choisie")
+            else:
+                ma_date = date.today()
+                date_actuelle = ma_date.strftime("%d/%m/%y")
+                data2 = (ineLabelEtudiantText.get(), formationDeroulant.get(), date_actuelle)
+                req2 = "INSERT INTO inscriptions(ine_etudiant, code_formation,date_inscription) VALUES(?,?,?)"
+                cursor.execute(req2, data2)
+                connexion.commit()
+
+                messagebox.showinfo("Inscription à une formation ","L'inscription de l'etudiant " +
+                                    nomLabelEtudiantText.get() + " à la formation ayant le code : " +
+                                    formationDeroulant.get()+ " a été faite avec succès !!")
+
+                self.afficherEtudiants()
+        cursor.close()
+        connexion.close()
+
+
+
+
     def desinscrireEtudiant(self):
         pass
     def rechercherPar(self):
