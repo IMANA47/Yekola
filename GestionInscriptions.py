@@ -1,7 +1,6 @@
 from datetime import *
 from tkinter import *
 from tkinter import ttk, messagebox
-from validate_email import validate_email
 import sqlite3
 
 
@@ -203,7 +202,7 @@ class GestionInscriptions:
         self.afficherEtudiants()
         formationsEtudiantTable.bind("<ButtonRelease-1>", self.recupererDonneesSelectionnees)
 
-
+    # Methode pour inscrire un etudiant a une formation
     def inscrireEtudiant(self):
         database = "database/data_base_yekola.db"
         connexion = sqlite3.connect(database)
@@ -233,14 +232,65 @@ class GestionInscriptions:
                                     formationDeroulant.get()+ " a été faite avec succès !!")
 
                 self.afficherEtudiants()
+                self.afficher_formations_etudiant()
+        cursor.close()
+        connexion.close()
+
+    # Methode pour desinscrire un etudiant a une formation
+    def desinscrireEtudiant(self):
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        if formationDeroulant.get() == "":
+            messagebox.showerror("Erreur", "Veuillez choisir une formation !")
+        else:
+            data = (ineLabelEtudiantText.get(), formationDeroulant.get())
+            req = "SELECT * FROM inscriptions WHERE ine_etudiant = ? AND code_formation=?"
+            cursor.execute(req, data)
+            result1 = cursor.fetchall()
+            if len(result1) == 0:
+                messagebox.showerror("Erreur", "Veuillez choisir une formation  à laquelle est inscrit l'etudiant !")
+            else:
+                supp = messagebox.askyesno("Désinscription", "Vous le vous désinscrire l'etudiant ")
+                if supp>0:
+                    req1 = "DELETE FROM inscriptions WHERE ine_etudiant = ? AND code_formation = ?"
+
+                    cursor.execute(req1, data)
+                    connexion.commit()
+
+                    messagebox.showinfo("Désinscription", "La désinscription de l'étudiant "+ nomLabelEtudiantText.get() +" été effectué")
+
+            self.afficher_formations_etudiant()
+        cursor.close()
+        connexion.close()
+
+
+    #Methode pour afficher la formation dans le quelle un etudiant sélectionné est inscrit
+    def afficher_formations_etudiant(self):
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        data = (ineLabelEtudiantText.get(),)
+        req = """SELECT formations.code_formations, formations.intitule_formation, inscriptions.date_inscription FROM
+        formations JOIN inscriptions ON formations.code_formations = inscriptions.code_formation
+        JOIN etudiants ON ine = inscriptions.ine_etudiant AND inscriptions.ine_etudiant = ?"""
+
+        cursor.execute(req, data)
+        results = cursor.fetchall()
+
+        if len(results) > 0:
+            self.formationsEtudiantTable.delete(*self.formationsEtudiantTable.get_children())
+            for ligne in results:
+                self.formationsEtudiantTable.insert('', END, values = ligne)
+
         cursor.close()
         connexion.close()
 
 
 
 
-    def desinscrireEtudiant(self):
-        pass
     def rechercherPar(self):
 
         database = "database/data_base_yekola.db"
@@ -327,6 +377,11 @@ class GestionInscriptions:
         nomLabelEtudiantText['state'] = 'disabled'
         prenomLabelEtudiantText['state'] = 'disabled'
         emailLabelEtudiantText['state'] = 'disabled'
+
+        self.fromationsEtudiantTable.delete(*self.fromationsEtudiantTable.get_children())
+        self.afficher_formations_etudiant()
+
+
 
     def gestionFormations(self):
         pass
