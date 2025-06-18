@@ -46,11 +46,14 @@ class MenuAccueil:
         """
 
     def gestions_etudiants(self):
-        pass
+        e= compile(open('./GestionEtudiants.py').read(), './GestionEtudiants.py', 'exec')
+        exec(e)
     def gestions_formations(self):
-        pass
+        e= compile(open('./GestionFormations.py').read(), './GestionFormations.py', 'exec')
+        exec(e)
     def gestions_inscriptions(self):
-        pass
+        e= compile(open('./GestionInscriptions.py').read(), './GestionInscriptions.py', 'exec')
+        exec(e)
     def gestions_formateurs(self):
         pass
 

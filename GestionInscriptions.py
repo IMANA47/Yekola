@@ -42,7 +42,7 @@ class GestionInscriptions:
                                        cursor='hand2', command=self.gestionFormations)
         gestionFormationButon.grid(row=0, column=1, padx=10, pady=10)
 
-        gestionInscriptionButon = Button(menuFrame, text="Gestion des étudiants", font=('ubuntu', 16, 'bold'),
+        gestionInscriptionButon = Button(menuFrame, text="Gestion des étudiants ", font=('ubuntu', 16, 'bold'),
                                          width=23, cursor='hand2', command=self.gestionEtudiants)
         gestionInscriptionButon.grid(row=0, column=2, padx=10, pady=10)
 
@@ -414,9 +414,11 @@ class GestionInscriptions:
 
 
     def gestionFormations(self):
-        pass
+        e= compile(open('./GestionFormations.py').read(), './GestionFormations.py', 'exec')
+        exec(e)
     def gestionEtudiants(self):
-        pass
+        e= compile(open('./GestionEtudiants.py').read(), './GestionEtudiants.py', 'exec')
+        exec(e)
     def gestionFormateur(self):
         pass
 

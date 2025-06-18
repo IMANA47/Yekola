@@ -367,10 +367,12 @@ class GestionFormations:
         connexion.close()
 
     def gestionEtudiants(self):
-        pass
+        e= compile(open('./GestionEtudiants.py').read(), './GestionEtudiants.py', 'exec')
+        exec(e)
 
     def gestionInscriptions(self):
-        pass
+        e= compile(open('./GestionInscriptions.py').read(), './GestionInscriptions.py', 'exec')
+        exec(e)
 
     def gestionFormateur(self):
         pass

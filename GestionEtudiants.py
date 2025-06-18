@@ -46,6 +46,9 @@ class GestionEtudiants:
         gestionFormateurButon = Button(menuFrame, text="Gestion des formateurs", font=('ubuntu', 16, 'bold'), width=23,
                                        cursor='hand2', command=self.gestionFormateur)
         gestionFormateurButon.grid(row=0, column=3, padx=10, pady=10)
+        accueilButon = Button(menuFrame, text="Menu d'Accueil", font=('ubuntu', 12, 'bold'), width=15,
+                                       cursor='hand2', command=self.menu_accueil)
+        accueilButon.grid(row=0, column=4, padx=10, pady=10)
 
         # ========Formulaire de saisi des données des etudiants =======================
         manageFrame = Frame(self.root, bd=2, relief="groove", bg='#1E02F2')
@@ -414,13 +417,19 @@ class GestionEtudiants:
         connexion.close()
 
     def gestionFormations(self):
-        pass
+        e= compile(open('./GestionFormations.py').read(), './GestionFormations.py', 'exec')
+        exec(e)
 
     def gestionInscriptions(self):
-        pass
+        e= compile(open('./GestionInscriptions.py').read(), './GestionInscriptions.py', 'exec')
+        exec(e)
 
     def gestionFormateur(self):
         pass
+
+    def menu_accueil(self):
+        pass
+
 
 
 root = Tk()
