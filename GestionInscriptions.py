@@ -4,6 +4,8 @@ from tkinter import ttk, messagebox
 import sqlite3
 
 
+
+
 class GestionInscriptions:
     def __init__(self, root):
         self.root = root
@@ -27,7 +29,7 @@ class GestionInscriptions:
         global emailLabelEtudiantText
         global villeLabelEtudiantText
         global  rechercheText
-
+        global rechercheFormationDeroulantText
         global formationsEtudiantTable
         global formationDeroulant
 
@@ -347,7 +349,35 @@ class GestionInscriptions:
         return result
 
     def rechercherParFormation(self):
-        pass
+        database = "database/data_base_yekola.db"
+        connexion = sqlite3.connect(database)
+        cursor = connexion.cursor()
+
+        if rechercheFormationDeroulantText.get() == "":
+            messagebox.showerror("Erreurs", "Veuillez choisir une formation")
+        else :
+            data = (rechercheFormationDeroulantText.get(),)
+
+            req = """SELECT etudiants.ine, etudiants.nom_etudiant, etudiants.prenom_etudiant, etudiants.email,
+            etudiants.adresse,etudiants.ville FROM etudiants
+            JOIN inscriptions ON  etudiants.ine =  inscriptions.ine_etudiant
+            AND
+            inscriptions.code_formation = ?
+            """
+        cursor.execute(req, data)
+        results = cursor.fetchall()
+
+        if len(results) > 0:
+            formationsEtudiantTable.delete(*self.formationsEtudiantTable.get_children())
+            for row in results:
+                formationsEtudiantTable.insert('', END, values = row)
+        else:
+            messagebox.showinfo("Information", "Il n'existe aucun étudiant inscrit à la formation")
+
+        cursor.close()
+        connexion.close()
+
+
 
     #Methode pour recuperer donnees selectionné
     def recupererDonneesSelectionnees(self, evenement):
