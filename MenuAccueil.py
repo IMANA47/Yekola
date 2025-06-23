@@ -14,18 +14,18 @@ class MenuAccueil:
         largeur_ecran = self.root.winfo_screenwidth()
         hauteur_ecran = self.root.winfo_screenheight()
         self.root.geometry('%dx%d' % (largeur_ecran, hauteur_ecran))
-        self.root.configure(bg='#DADADA')
+        self.root.configure(bg='#1E02F2')
 
         self.arriere_plan = ImageTk.PhotoImage(file="images/yekolaBackground.png")
         arriere_plan = Label(self.root, image=self.arriere_plan)
         arriere_plan.place(x=0, y=0, relwidth=1, relheight=1)
 
-        self.imgGaucheLabel = ImageTk.PhotoImage(file="images/yekolaBackground.png")
+        self.imgGaucheLabel = ImageTk.PhotoImage(file="images/yekola_acceuil_image.png")
         imgGaucheLabel = Label(self.root, image=self.imgGaucheLabel)
-        imgGaucheLabel.place(x=200, y=100,width=300, height=450)
+        imgGaucheLabel.place(x=100, y=11,width=375, height=500)
 
         #frame bouton navigation
-        frameMenu = Frame(self.root, bd=2,relief="groove", bg="blue")
+        frameMenu = Frame(self.root, bd=2,relief="groove", bg="#1E02F2")
         frameMenu.place(x=500,y=100, width=700, height=450)
 
         bouton1 = Button(frameMenu, text="GESTIONS DES ETUDIANTS", font=('Arial', 12, 'bold'), width=28, height=3, cursor="hand2", command= self.gestions_etudiants)
