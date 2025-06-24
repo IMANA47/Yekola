@@ -86,7 +86,7 @@ class GestionFormations:
         objectifLabelFormationText.grid(row=6, column=1, padx=10, pady=10, sticky='w')
 
         # ========ajout du espace des boutons d'action de gestion  des etudiants =================
-        boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
+        boutonFrame = Frame(manageFrame, bd=2, relief=GROOVE, bg="#1E02F2")
         boutonFrame.place(x=20, y=400, width=0.28 * largeur_ecran, height=70)
 
         # ========ajout des boutons d'action de gestions des etudiants =================

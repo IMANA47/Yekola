@@ -92,8 +92,8 @@ class GestionInscriptions:
 
 
         # ========ajout du espace des boutons d'action de gestion  des etudiants =================
-        boutonFrame = Button(manageFrame, bd=2, relief="groove", bg='#1E02F2')
-        boutonFrame.place(x=150, y=220, width=0.18 * largeur_ecran, height=70)
+        boutonFrame = Frame(manageFrame, bd=2, relief=GROOVE, bg="#1E02F2")
+        boutonFrame.place(x=150, y=210, width=0.18 * largeur_ecran, height=70)
 
         # ========ajout des boutons d'action de gestions des etudiants =================
         inscrireButton = Button(boutonFrame, text='Inscrire', width=8, height=2, command=self.inscrireEtudiant,
