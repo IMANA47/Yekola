@@ -45,7 +45,8 @@ coverage.xml
 dmypy.json
 
 # === Configurations IDE ===
-.idea/  # PyCharm
+
+.idea/  		# PyCharm
 .vscode/        # VS Code (au cas où)
 
 # === PyInstaller ===
